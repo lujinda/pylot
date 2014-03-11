@@ -1,0 +1,37 @@
+import wx
+class DragController(wx.Control):
+    def __init__(self,parent,source,size=(25,25)):
+        wx.Control.__init__(self,parent,-1,size=size,style=wx.SIMPLE_BORDER)
+        self.source=source
+        self.SetMinSize(size)
+        self.Bind(wx.EVT_PAINT,self.OnPaint)
+        self.Bind(wx.EVT_LEFT_DOWN,self.OnLeftDown)
+    def OnPaint(self,evt):
+        dc=wx.BufferedPaintDC(self)
+        dc.SetBackground(wx.Brush(self.GetBackgroundColour()))
+        dc.Clear()
+        w,h=dc.GetSize()
+        y=h/2
+        dc.SetPen(wx.Pen("dark blue",2))
+        dc.DrawLine(w/8,y,w-w/8,y)
+        dc.DrawLine(w-w/8,y,w/2,h/4)
+        dc.DrawLine(w-w/8,y,w/2,3*h/4)
+    def OnLeftDown(self,evt):
+        text=self.source.GetValue()
+        data=wx.TextDataObject(text)
+        dropSource=wx.DropSource(self)
+        dropSource.SetData(data)
+        result=dropSource.DoDragDrop(wx.Drag_AllowMove)
+        if result==wx.DragMove:
+            self.source.SetValue("")
+class MyFrame(wx.Frame):
+    def __init__(self):
+        wx.Frame.__init__(self,None,title="Drop Source")
+        p=wx.Panel(self)
+        label1=wx.StaticText(p,-1,"put some text in this control:")
+        label2=wx.StaticText(p,-1,"")
+        text=wx.TextCtrl(p,-1,"Some text")
+        dragctl=DragController(p,text)
+        sizer=wx.BoxSizer(wx.VERTICAL)
+        size.Add(label1,0,wx.ALL,5)
+        

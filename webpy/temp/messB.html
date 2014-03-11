@@ -1,0 +1,31 @@
+$def with(mess,e=None)
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>留言板</title>
+<script src="/static/blog.js" language="javascript"> </script>
+</head>
+<body>
+<script language="javascript">
+function checkEmpty(){
+	if (lForm.Name.value=="" || lForm.Content.value=="" )
+	{
+		alert("不要有内容是空的哦，这样不乖");
+		return false;
+	}
+	return true;
+}
+</script>
+
+$for i in mess:
+	<li id="t1"><b>$:i.Name:</b>$:i.Content		<font color="#66666666" style="font-size:80%;">$i.Time</font></li><p><hr>
+<form method="post" action="lmess" name="lForm" id="lForm" onsubmit="return checkEmpty()">
+<p>你的姓名:<br><input type="text" name="Name" id="Name"/>
+<p>留言内容:<br><input style="width:500px" type="text" name="Content" id="Content"/>
+<input type="submit" value="留言"/>
+</p>
+$e
+</form>
+
+</body>
+</html>

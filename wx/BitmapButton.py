@@ -1,0 +1,52 @@
+import wx
+import wx.lib.buttons as buttons
+class GenericButtonFrame(wx.Frame):
+	def __init__(self):
+		wx.Frame.__init__(self,None,-1,"Generic Button Example",size=(500,350))
+		panel=wx.Panel(self,-1)
+		sizer=wx.FlexGridSizer(1,3,20,20)
+		b=wx.Button(panel,-1,"A wx.Button")
+		b.SetDefault()
+		b.SetToolTipString("a wx.Button")
+		sizer.Add(b)
+		b=wx.Button(panel,-1,"non-default wx.Button")
+		sizer.Add(b)
+		sizer.Add((10,10))
+		b=buttons.GenButton(panel,-1,"Genric Button")
+		sizer.Add(b)
+		b=buttons.GenButton(panel,-1,"disabled Generic")
+		b.Enable(False)
+		sizer.Add(b)
+		b=buttons.GenButton(panel,-1,'bigger')
+		b.SetFont(wx.Font(20,wx.SWISS,wx.NORMAL,wx.BOLD,False))
+		b.SetBezelWidth(5)
+		b.SetBackgroundColour("Navy")
+		b.SetForegroundColour("white")
+		b.SetToolTipString("this is a Big button..")
+		sizer.Add(b)
+		bmp=wx.Bitmap("img/002.jpg",wx.BITMAP_TYPE_JPEG)
+		b=buttons.GenBitmapButton(panel,-1,bmp)
+		sizer.Add(b)
+		b=buttons.GenBitmapToggleButton(panel,-1,bmp)
+		sizer.Add(b)
+		b=buttons.GenBitmapTextButton(panel,-1,bmp,"Bitmapped Text",size=(175,75))
+		self.Bind(wx.EVT_BUTTON,self.OnClick,b)
+		b.SetUseFocusIndicator(False)
+		sizer.Add(b)
+		b=buttons.GenToggleButton(panel,-1,"Toggle Button")
+		sizer.Add(b)
+		b=wx.ToggleButton(panel,-1,"on/off")
+		self.Bind(wx.EVT_TOGGLEBUTTON,self.OnClick,b)
+		sizer.Add(b)
+		panel.SetSizer(sizer)
+	def OnClick(self,event):
+		print 'ok'
+		dlg=wx.MessageDialog(self,"on ...","abc",style=wx.CANCEL)
+		dlg.ShowModal()
+if __name__=="__main__":
+	app=wx.App()
+	frame=GenericButtonFrame()
+	frame.Show()
+	app.MainLoop()
+
+

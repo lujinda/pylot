@@ -1,0 +1,29 @@
+import sys,re,urllib,urllib2,cookielib,os.path,json
+cookie=cookielib.LWPCookieJar()
+chandle=urllib2.HTTPCookieProcessor(cookie)
+def getData(url):
+	r=urllib2.Request(url)
+	opener=urllib2.build_opener(chandle)
+	u=opener.open(r)
+	data=u.read()
+	try:
+		data=data.decode('utf-8')
+	except:
+		data=data.decode('gbk','ignore')
+	return data
+def postData(url,data):
+	data=urllib.urlencode(data)
+	data=bytes(data,'utf-8')
+	r=urllib2.Request(url,data)
+	opener=urllib2.build_opener(chandle)
+	u=opener.open(r)
+	data=u.read()
+	try:
+		data=data.decode('utf-8')
+	except:
+		data=data.decode('gbk','ignore')
+	return data
+class Baidu:
+
+
+

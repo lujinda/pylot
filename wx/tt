@@ -1,0 +1,22 @@
+import wx
+class MyFrame(wx.Frame):
+	def __init__(self,parent):
+		wx.Frame.__init__(self,parent,-1,title="my Frame",pos=(100,100),size=(400,300))
+		panel=wx.Panel(self,-1)
+		self.Text=wx.StaticText(panel,-1,'')
+		panel.SetFocus()
+		panel.Bind(wx.EVT_KEY_DOWN,self.OnKeyDown)
+		self.Bind(wx.EVT_KEY_DOWN,self.OnKeyDown)
+
+	def OnKeyDown(self,event):
+		kc=event.GetKeyCode()
+		print kc
+		if kc==79 and event.ControlDown():
+			self.Text.SetLabel('ok')
+		
+if __name__=='__main__':
+	app=wx.PySimpleApp()
+	frame=MyFrame(None)
+	frame.Show()
+	app.MainLoop()
+sdfsdf

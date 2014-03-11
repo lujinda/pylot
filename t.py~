@@ -1,0 +1,8 @@
+#coding:utf-8
+class text():
+    def __init__(self,fun,*args,**kwargs):
+        self.args=args
+    def p(self):
+        print self.args
+t=text('abc','defasd')
+t.p()

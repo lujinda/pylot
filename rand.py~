@@ -1,0 +1,46 @@
+#!/usr/bin/env python
+#coding:utf8
+import random
+import thread
+import threading
+class showRandom():
+    def mkNum(self,obje,l):
+        self.lock.acquire()
+        for i in range(0,int(random.random()*l+1)):
+            self.s+=str(random.choice(obje))
+        self.result.append(self.s)
+        self.lock.release()
+    def __init__(self,obje,number,l):
+        self.lock=threading.RLock()
+        self.result=[]
+        self.s=""
+        for i in range(0,number):
+            if len(obje)<27:
+                thread.start_new_thread(self.mkNum,(obje,l,))
+            else:
+                l=int(random.random()*10+1)
+                while len(self.s)<l:
+                    rand=int(random.random()*l/3+1)
+                    for i in range(0,rand):
+                        self.s+=str(random.choice(obje[:10]))
+                    for i in range(0,int(random.random()*(l-rand))):
+                        self.s+=random.choice(obje[10:])
+                    if l<len(self.s):self.s=self.s[:l]
+          #  result.append(self.s)
+        print self.result
+
+
+num=range(0,10)
+letter=[chr(x) for x in range(97,123)]
+print ('1.Generate a list of all-digital\n2.Generate a list of the full letter\n3.Generate a list of numbers and letters')
+swit={'1':num,'2':letter,'3':num+letter}
+while True:
+    index=raw_input('Please select the type of:')
+    number=int(raw_input('Number of elements:'))
+    l=int(raw_input('Length of each element:'))
+    if index in swit and l >0 and number >0:
+        break
+    else:
+        print 'Input error,please re-enter~~'
+showRandom(swit[index],number,l)
+

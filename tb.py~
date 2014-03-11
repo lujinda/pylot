@@ -1,0 +1,100 @@
+# -*- coding: utf-8 -*-
+ 
+import urllib
+import urllib2
+import chardet
+import cookielib
+import re
+import json
+import Image
+hds={
+    'User-Agent' : 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:14.0) Gecko/20100101 Firefox/14.0.1',  
+}
+ 
+url='https://login.taobao.com/member/login.jhtml'
+notUrl='http://trade.taobao.com/trade/itemlist/listBoughtItems.htm?action=itemlist/QueryAction&event_submit_do_query=1&auctionStatus=SEND'
+#username=raw_input('请输入用户:')
+#password=raw_input('请输入密码:')
+username='qq929300079'
+password='zxc12392930007'
+postData = {
+    'CtrlVersion': '1,0,0,7',  
+    'TPL_password':password,  
+    'TPL_redirect_url':'',  
+    'TPL_username':username,  
+    'action':'Authenticator',  
+    'callback':'jsonp312',  
+    'css_style':'',  
+    'event_submit_do_login':'anything',  
+    'fc':2,  
+    'from':'tb',  
+    'from_encoding':'',  
+    'guf':'',  
+    'gvfdcname':'',  
+    'isIgnore':'',  
+    'llnick':'',  
+    'loginType':3,  
+    'longLogin':0,  
+    'minipara' :'',  
+    'minititle':'',  
+    'need_sign':'',  
+    'need_user_id':'',  
+    'not_duplite_str':'',  
+    'popid':'',  
+    'poy':'',  
+    'pstrong':'',  
+    'sign':'',  
+    'style':'default',  
+    'support':'000001',  
+    'tid':'',      
+    'TPL_checkcode':'',
+    'need_check_code':'',
+}
+class taobao(): 
+    def loginTaobao(self):
+        cookiejar=cookielib.LWPCookieJar()
+        cookieSupport=urllib2.HTTPCookieProcessor(cookiejar)
+        opener=urllib2.build_opener(cookieSupport,urllib2.HTTPHandler())
+        urllib2.install_opener(opener)
+        taobao=urllib2.urlopen(url)
+        page=taobao.read().decode('gbk')
+        r_img=re.compile(r'codeURL:\"(.+?)\"')
+        checkCodeUrl=r_img.findall(page)[0]
+        self.sendPost(url)
+        if checkCodeUrl:
+            self.getCheckCode(checkCodeUrl)
+        self.sendPost(url)
+    def getCheckCode(self,url):
+        fd=open("/data/_taobao_t.jpg",'w+')
+        fd.write(urllib2.urlopen(url).read())
+        fd.close()
+        checkCode=raw_input('请输入验证码，验证码在(/data/_taobao_t.jpg):')
+        postData['TPL_checkcode']=checkCode
+        postData['need_check_code']="true"
+    def sendPost(self,url):
+        post=urllib.urlencode(postData)
+        req=urllib2.Request(url,post,hds)
+        page=urllib2.urlopen(req)
+        text=page.read().decode("gbk")
+        info=page.info()
+        status=page.getcode()
+        page.close()
+        text=json.loads(text)
+        if  not text['state']:
+            print text['message']
+        else:
+            self.showEX()
+            print '登录成功'
+    def showEX(self):
+        notData=unicode(urllib2.urlopen(notUrl).read(),'gbk').encode('utf8')
+        re_name=re.compile(r'^\s*?<a class=\"baobei-name\".*?>(.*)</a>',re.S)       
+       # name=self.getData(notData,re_name)
+        for i in re_name.findall(notData):
+            print i
+    def getData(self,data,re_data):
+        print data[:30000]
+        return re_data.findall(data)
+
+tb=taobao()
+tb.loginTaobao()
+

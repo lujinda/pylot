@@ -1,0 +1,48 @@
+$def with(mess=None)
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<title>登录</title>
+<script src="/static/blog.js" language="javascript"></script>
+<style type="text/css">
+body{margin:50px}
+input{
+	width: 150px;
+}
+</style>
+<script language="javascript">
+function checkEmpty(){
+	if(Login.User.value=="" || Login.Pwd.value=="")
+	{
+		alert("请保证登录信息不为空!");
+		return false;
+	}
+	return true;
+}
+</script>
+</head>
+<body align="center" margin=20>
+<table align="center" width=400>
+<tr><td align="left"> 
+
+在登录前，请确保您已有账号
+<p>
+<form method="post" id="Login" name="Login" onsubmit="return checkEmpty()" action="/login/loginPost">
+<table width="242" border="0">
+  <tr>
+    <td>用户名:</td>
+    <td><input name="User" type="text" id='User' /></td>
+  </tr>
+  <tr>
+    <td>密　码:</td>
+    <td><input name="Pwd" id="Pwd" type="password" /></td>
+  </tr>
+   <tr>
+    <td></td><td align="center">  <input style="width:50px" type="submit" value="登录"/></td>
+  </tr>
+</table>
+</form>
+<p>
+$mess
+</body>
+</html>

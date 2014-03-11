@@ -1,0 +1,16 @@
+#coding:utf8
+import urllib2
+import urllib
+
+gjc=urllib.quote(raw_input("请输入关键词"))
+url="http://suggestion.baidu.com/su?wd=%s&p=3&cb=window.bdsug.sug&from=superpage&t=1390365527548" %(gjc)
+
+hds={
+'Host':'suggestion.baidu.com',
+'Referer':'http://www.baidu.com/'
+'User-Agent:Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36'
+}
+req=urllib2.Request(url,None,hds)
+page=urllib2.urlopen(req).read()
+print page
+

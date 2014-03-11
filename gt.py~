@@ -1,0 +1,8 @@
+import urllib,urllib2,re
+url='http://www.weather.com.cn/textFC/hb.shtml'
+page=urllib2.urlopen(url).read()
+r_c=re.compile(ur'<a href=\"http://www.weather\.com\.cn/weather/(\d+)\.shtml\" target=\"_blank\">(\W+)</a>')
+fd=open('citylist.txt','w')
+s=r_c.findall(page)
+for i in s:
+	print i
