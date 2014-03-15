@@ -6,8 +6,7 @@ import time
 import os
 import re
 import sys
-import anydbm
-import pickle
+import shelve
 """
     isKeyTrue(userpass)函数用来验证密码是否正确
     OnGet()是单击ListCtrl项时触发的事件，用来取得Text，得到字典key
@@ -20,7 +19,7 @@ Db=os.path.join(os.path.dirname(os.path.abspath(sys.argv[0])),'userData.db')
 
 
 def openDb(dbUrl):
-    return anydbm.open(dbUrl,'c')
+    return shelve.open(dbUrl,'c')
 
 def readKey():
     db=openDb(Db)
@@ -143,7 +142,7 @@ class DiaryFrame(wx.Frame):
         if 'diaries' not in db:
             self.diariesList={}
             return False
-        self.diariesList=pickle.loads(db['diaries'])
+        self.diariesList=db['diaries']
         for changeTime in self.diariesList:
             title= len(self.diariesList[changeTime])<60 and self.diariesList[changeTime] or self.diariesList[changeTime][0:60]
             self.diaryList.InsertStringItem(0,changeTime)
@@ -168,7 +167,7 @@ class DiaryFrame(wx.Frame):
         self.contentText.Clear()
     def saveDb(self):
         db=openDb(Db)
-        db['diaries']=pickle.dumps(self.diariesList)
+        db['diaries']=self.diariesList
         db.close()
         
 
