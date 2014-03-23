@@ -144,7 +144,9 @@ class DiaryFrame(wx.Frame):
             return False
         self.diariesList=db['diaries']
         for changeTime in self.diariesList:
-            title= len(self.diariesList[changeTime])<60 and self.diariesList[changeTime] or self.diariesList[changeTime][0:60]
+            titleData=self.diariesList[changeTime]
+            En=titleData.find('\n')
+            title=titleData[:En] if 0<En < 60 else titleData[0:60]
             self.diaryList.InsertStringItem(0,changeTime)
             self.diaryList.SetStringItem(0,1,title)
 
