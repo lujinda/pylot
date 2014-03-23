@@ -1,5 +1,6 @@
 class Sample():
     def __init__(self):
+        print 'in __init__'
         pass
     def __enter__(self):
         return 'ok'
