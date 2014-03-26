@@ -83,8 +83,16 @@ class DiaryFrame(wx.Frame):
                 style=wx.CAPTION|wx.CLOSE_BOX|wx.MINIMIZE_BOX)
         self.isOpen=False
         self.showElement()
+        self.timer=wx.Timer(self,-1)
+        self.Bind(wx.EVT_TIMER,self.OnTimer,self.timer)
+        self.timer.Start(1000)
         self.Center()
         self.Show()
+    def OnTimer(self,event):
+        self.changeTime()
+    def changeTime(self):
+        self.timeLabel.SetLabel(time.asctime())
+
     def showElement(self):
         x=10
         self.panel=wx.Panel(self,-1)
@@ -98,7 +106,9 @@ class DiaryFrame(wx.Frame):
         self.contentText=wx.TextCtrl(self.panel,-1,'',pos=(-1,300),size=(600,280),style=wx.TE_MULTILINE)
         self.createButton()
         self.listDiaries()
-
+        wx.StaticText(self.panel,-1,'现在是:',pos=(-1,270))
+        self.timeLabel=wx.StaticText(self.panel,-1,time.asctime(),pos=(50,270))
+        
     def buttonData(self):
         return (
                 ('查看日记',(75,-1),(520,10),self.OnLook),
