@@ -381,7 +381,8 @@ class taobao():
             resultText['state']=True
             return resultText
     def getName(self,url):#获取宝贝名字
-        self.pageData=unicode(urllib2.urlopen(url).read(),'gbk').encode('utf8')
+        print unicode(urllib2.urlopen(url).read(),'gb2312')
+        self.pageData=unicode(urllib2.urlopen(url).read(),'gb2312').encode('utf8')
         re_name=re.compile(r'<a class=\"baobei\-name\".*?>(.+?)</a>',re.S)#匹配宝贝名字
         return re_name.findall(self.pageData)
     def getDealTime(self):
