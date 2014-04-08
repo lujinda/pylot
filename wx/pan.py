@@ -13,6 +13,8 @@ self.showDownPro()用来显示下载进度条
 self.startDown()是真正下载文件用的
 readDb()是用来读取数据库文件的，里面会记录着用户名和密码，还有是否要记录密码选项
 writeDb()是用来写入数据库的。
+loginBd()登录百度
+autoLogin()自动登录用的
 """
 import urllib
 import urllib2
@@ -29,8 +31,11 @@ import base64
 import sys
 import os
 import mimetypes
-import anydbm
+import shelve
 import tempfile
+dbUrl=os.path.join(os.path.dirname(os.path.abspath(sys.argv[0])),'.pan.db')
+cjUrl=os.path.join(os.path.dirname(os.path.abspath(sys.argv[0])),'.cj.txt')
+TempCodeImg=tempfile.mkstemp()[1]+'.gif'
 RemoteDir='/downloads/'
 Time=5000
 loginPost={
@@ -44,6 +49,7 @@ loginPost={
         'isPhone':'false',
         'quick_user':'0',
         'logintype':'basicLogin',
+        'mem_pass':'on',
         'username':'',
         'password':'',
         }
@@ -80,17 +86,18 @@ tbHds={
 loginUrl='https://passport.baidu.com/v2/api/?login'
 
 def writeDb(**kwargs):
-    db=anydbm.open(dbUrl,'c')
+    db=shelve.open(dbUrl,'c')
     for key in kwargs:
         db[key]=kwargs[key]
     db.close()
 def readDb(*args):
-    db=anydbm.open(dbUrl,'c')
+    db=shelve.open(dbUrl,'c')
     d={}
     for key in args:
         try:
             d[key]=db[key]
         except:
+            d[key]=''
             break
     db.close()
     return d
@@ -228,7 +235,9 @@ class panFrame(wx.Frame):
         return (
                 ('设置',
                     ('设置刷新时间\tCtrl-t','设置自动刷新时间',self.setTimer),
-                    ('关闭自动刷新\t','关闭刷新功能',self.offTimer)),
+                    ('关闭自动刷新\t','关闭刷新功能',self.offTimer),
+                    ('关闭自动登录\t','关闭自动登录功能',self.offAuto),
+                    ),
                 )
     def createMenu(self):
         menuBar=wx.MenuBar()
@@ -246,6 +255,10 @@ class panFrame(wx.Frame):
                 self.SetAcceleratorTable(ctrl)
             self.Bind(wx.EVT_MENU,handler,item)
         return menu
+
+    def offAuto(self,event):
+        writeDb(isAuto=False)
+
     def ShowElement(self):
         x=80
         width=500
@@ -361,6 +374,8 @@ class panFrame(wx.Frame):
         return urllib.quote(taskId[1:])
     def createButton(self):
         qdButton=wx.Button(self.panel,-1,'贴吧一键签到',pos=(200,10),size=(-1,-1))
+        ctrl=wx.AcceleratorTable([(wx.ACCEL_CTRL,ord('Q'),qdButton.GetId())])
+        self.SetAcceleratorTable(ctrl)
         self.Bind(wx.EVT_BUTTON,self.OnAddQd,qdButton)
         self.buttonItem=[]
         for data in self.buttonData():
@@ -589,6 +604,9 @@ class loginFrame(wx.Frame):
                 pos=(30,120))
         self.checkBox=wx.CheckBox(self.panel,-1,'记住密码',
                 pos=(labelPos[0],90))
+        self.autoBox=wx.CheckBox(self.panel,-1,'自动登录',
+                pos=(labelPos[0]+100,90))
+        self.Bind(wx.EVT_CHECKBOX,self.OnCheck,self.autoBox)
         self.checkBox.SetValue(isCheck == '1')
         self.button.SetDefault()
         self.Bind(wx.EVT_BUTTON,self.OnClick,self.button)
@@ -600,6 +618,10 @@ class loginFrame(wx.Frame):
     def OnClose(self,event):
         self.Destroy()
         sys.exit()
+
+    def OnCheck(self,event):
+        if self.autoBox.GetValue():
+            wx.MessageBox("下次登录将自动进入离线下载器界面，不再需要登录~\n如果要取消自动登录，可以在设置菜单中选择\"关闭自动登录!\"","自动登录已开启")
 
     def OnClick(self,event):
         self.bd.t.join()
@@ -613,7 +635,9 @@ class loginFrame(wx.Frame):
                 writeDb(userName=user,passWord=pwd,isCheck='1')
             else:
                 writeDb(userName='',passWord='',isCheck='')
+            writeDb(isAuto=self.autoBox.GetValue())
             self.messLabel.SetLabel("登录成功")
+            cj.save(cjUrl,ignore_discard=True, ignore_expires=True)
             self.Show(False)
             panFrame()
         else:
@@ -662,13 +686,27 @@ class baidu():
             return False
         
 if __name__=='__main__':
-    TempCodeImg=tempfile.mkstemp()[1]+'.gif'
-    dbUrl=os.path.join(os.path.dirname(os.path.abspath(sys.argv[0])),'.pan.db')
-    cj=cookielib.LWPCookieJar()
-    opener=urllib2.build_opener(urllib2.HTTPCookieProcessor(cj),urllib2.HTTPHandler())
-    urllib2.install_opener(opener)
-    mutex=threading.Lock()
+    cj=cookielib.MozillaCookieJar()
     app=wx.App()
-    lFrame=loginFrame(**readDb('userName','passWord','isCheck'))
+    def loginBd():
+        opener=urllib2.build_opener(urllib2.HTTPCookieProcessor(cj),urllib2.HTTPHandler())
+        urllib2.install_opener(opener)
+        mutex=threading.Lock()
+        lFrame=loginFrame(**readDb('userName','passWord','isCheck'))
+
+    def autoLogin():
+        try:
+            cookies=cookielib.MozillaCookieJar(cjUrl)
+            cookies.load(ignore_discard=True,ignore_expires=True)
+            opener=urllib2.build_opener(urllib2.HTTPCookieProcessor(cookies))
+            urllib2.install_opener(opener)
+            panFrame()
+        except Exception,e:
+            loginBd()
+            return False
+    if readDb('isAuto')['isAuto']:
+        autoLogin()
+    else:
+        loginBd()
     app.MainLoop()
     

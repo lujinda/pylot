@@ -44,6 +44,7 @@ loginPost={
         'isPhone':'false',
         'quick_user':'0',
         'logintype':'basicLogin',
+        'mem_pass':'on',
         'username':'',
         'password':'',
         }
@@ -54,6 +55,13 @@ qdPost={
         'ie':'utf-8',
         'kw':'',
         'tbs':'',
+        }
+mkPost={
+        'path':'',
+        'isdir':'1',
+        'method':'post',
+        'block_list':'[]',
+        'size':'',
         }
 
 addPost={
@@ -456,11 +464,22 @@ class panFrame(wx.Frame):
         self.spaceLabel.SetLabel(self.spaceSize)
     def getSpace(self):
         page=urllib2.urlopen(self.spaceUrl).read()
-        text=json.loads(page)['list']
-        text.reverse()
-        self.spaceItem=text
+        text=json.loads(page)
+        errno=int(text['errno'])
+        if errno:self.mkdir('/downloads')
+        fileText=text['list']
+        fileText.reverse()
+        self.spaceItem=fileText
         WorkerThread(self,self.showSpace).start()
         threading.Thread(target=self.getSpaceSize).start()
+    def mkdir(self,path):
+        mkUrl='http://pan.baidu.com/api/create?a=commit&channel=chunlei&clienttype=0&web=1&bdstoken=%s'%self.bdstoken
+        mkPost['path']=path
+        mkData=urllib.urlencode(mkPost)
+        req=urllib2.Request(mkUrl,mkData,hds)
+        urllib2.urlopen(req)
+    
+
     def showSpace(self):
         self.spaceList.Clear()
         for data in self.spaceItem:
@@ -646,7 +665,7 @@ class baidu():
 if __name__=='__main__':
     TempCodeImg=tempfile.mkstemp()[1]+'.gif'
     dbUrl=os.path.join(os.path.dirname(os.path.abspath(sys.argv[0])),'.pan.db')
-    cj=cookielib.LWPCookieJar()
+    cj=cookielib.CookieJar()
     opener=urllib2.build_opener(urllib2.HTTPCookieProcessor(cj),urllib2.HTTPHandler())
     urllib2.install_opener(opener)
     mutex=threading.Lock()

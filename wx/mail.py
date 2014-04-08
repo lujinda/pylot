@@ -7,6 +7,7 @@ import mimetypes
 import threading
 import chardet
 import sys
+import socket
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -193,11 +194,6 @@ class loginFrame(wx.Frame):
         smtp=smtplib.SMTP()
         try:
             smtp.connect(*(self.host if  self.host[0] else self.getHost(user)))
-        except:
-            WorkerThread(self,self.changeLabel,self.messLabel,"连接smtp服务器出错").start()
-            smtp.close()
-            return 127
-        try:
             smtp.login(user,pwd)
             WorkerThread(self,self.changeLabel,self.messLabel,"登录成功").start()
             if self.checkBox.GetValue():
@@ -206,9 +202,12 @@ class loginFrame(wx.Frame):
                 saveInfo(userName='',passWord='',isCheck='')
             self.Show(False)
             wx.CallAfter(mailFrame,user,smtp)
-        except:
+        except smtplib.SMTPAuthenticationError:
             WorkerThread(self,self.changeLabel,self.messLabel,"用户名或密码出错").start()
             smtp.close()
+            return 127
+        except:
+            WorkerThread(self,self.changeLabel,self.messLabel,"连接smtp服务器出错").start()
             return 127
             
 
@@ -228,8 +227,6 @@ class loginFrame(wx.Frame):
                 ':'.join(self.host))
         self.host=mailHost.split(':')
         writeDb(openDb(Db),'host',self.host)
-    
-    
     
 if __name__=='__main__':
     app=wx.App()
