@@ -1,0 +1,50 @@
+#!/usr/bin/env python
+
+import urllib
+import urllib2
+import re
+import cookielib
+
+qdPost={
+        "ie":"utf-8",
+        "kw":'',
+        "tbs":'',
+        }
+
+tbHds={
+
+        }
+
+class tieba:
+    def __init__(self):
+        self.cj=cookielib.MozillaCookieJar(".cj.txt")
+        self.cj.load()
+        opener=urllib2.build_opener(urllib2.HTTPCookieProcessor(self.cj),
+                urllib2.HTTPHandler())
+        urllib2.install_opener(opener)
+        self.addQd()
+
+    def addQd(self):
+        for kwUrl,kw in self.getKw():
+            kwUrl="http://tieba.baidu.com" + kwUrl
+            kw=unicode(kw,"gbk").encode("utf8")
+            qdPost['kw']=kw
+            qdPost['tbs']=self.getTbs("http://tieba.baidu.com/f?kw=%s&fr=index"%kw)
+            qdData=urllib.urlencode(qdPost)
+            req=urllib2.Request(url,qdData,tbHds)
+            urllib2.urlopen(req)
+            
+    def getTbs(self,url):
+        re_tbs=re.compile(r'PageData.tbs = \"(.+?)\"')
+        page=urllib2.urlopen(url).read()
+        return re_tbs.findall(page)[0]
+    
+    def getKw(self):
+        likeUrl="http://tieba.baidu.com/f/like/mylike"
+        page=urllib2.urlopen(likeUrl).read()
+        re_kw=re.compile(r'<a href=\"(.+?)\" title=\"(.+?)\">')
+        return re_kw.findall(page)
+        
+
+tieba()
+

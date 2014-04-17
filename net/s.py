@@ -1,22 +1,14 @@
-#!/usr/bin/env python
 import socket
-import struct
-import traceback
-import time
-host=''
-port=1234
 
-s=socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
+host="127.0.0.1"
+port=1234
+s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 s.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR,1)
 s.bind((host,port))
 
-while 1:
-    try:
-        mess,addr=s.recvfrom(1024)
-        secs=int(time.time())
-        reply=struct.pack("!I",secs)
-        s.sendto(reply,addr)
-    except (KeyboardInterrupt,SystemExit):
-        raise
-    except:
-        traceback.print_exc()
+s.listen(10)
+conn,addr=s.accept()
+conn.sendall("ok\n")
+print conn.recv(1024),
+s.close()
+

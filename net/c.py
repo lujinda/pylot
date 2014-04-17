@@ -1,4 +1,7 @@
 import socket,sys
-result=socket.getaddrinfo(sys.argv[1],None,0,socket.SOCK_STREAM)
-for data in result:
-    print data[4]
+
+s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+s.connect(("127.0.0.1",1234))
+s.shutdown(0)
+print s.recv(1024),
+s.sendall("abc")

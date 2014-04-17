@@ -34,7 +34,7 @@ import mimetypes
 import shelve
 import tempfile
 dbUrl=os.path.join(os.path.dirname(os.path.abspath(sys.argv[0])),'.pan.db')
-cjUrl=os.path.join(os.path.dirname(os.path.abspath(sys.argv[0])),'.cj.txt')
+cjUrl=os.path.join(os.path.dirname(os.path.abspath(sys.argv[0])),'._cj_ljd.txt')
 TempCodeImg=tempfile.mkstemp()[1]+'.gif'
 RemoteDir='/downloads/'
 Time=5000
