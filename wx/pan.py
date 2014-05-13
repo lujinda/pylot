@@ -516,6 +516,7 @@ class panFrame(wx.Frame):
         url=page.geturl()
         url='http://' + '113.215.0.56' +'/cdn.baidupcs.com/' +url[url.find('file'):]
         if reqDialog == wx.ID_YES:
+            print url
             webbrowser.open_new_tab(url)
         else:
             fileName=data['server_filename']

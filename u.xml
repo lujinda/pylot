@@ -1,0 +1,74 @@
+<background>
+	<starttime>
+		<year>2014</year>
+		<month>49</month>
+		<day>11</day>
+		<hour>09</hour>
+		<minute>05</minute>
+		<second>48</second>
+	</starttime>
+	<static>
+		<duration>595.0</duration>
+		<file>/home/ljd/py/2014-04-30 10.28.42.jpg</file>
+	</static>
+	<transition>
+		<duration>5.0</duration>
+		<from>/home/ljd/py/2014-04-30 10.28.42.jpg</from>
+		<to>/home/ljd/py/2014-04-28 10.24.02.jpg</to>
+	</transition>
+	<static>
+		<duration>595.0</duration>
+		<file>/home/ljd/py/2014-04-28 10.24.02.jpg</file>
+	</static>
+	<transition>
+		<duration>5.0</duration>
+		<from>/home/ljd/py/2014-04-28 10.24.02.jpg</from>
+		<to>/home/ljd/py/2014-04-30 10.30.54.jpg</to>
+	</transition>
+	<static>
+		<duration>595.0</duration>
+		<file>/home/ljd/py/2014-04-30 10.30.54.jpg</file>
+	</static>
+	<transition>
+		<duration>5.0</duration>
+		<from>/home/ljd/py/2014-04-30 10.30.54.jpg</from>
+		<to>/home/ljd/py/2014-04-28 10.24.20.jpg</to>
+	</transition>
+	<static>
+		<duration>595.0</duration>
+		<file>/home/ljd/py/2014-04-28 10.24.20.jpg</file>
+	</static>
+	<transition>
+		<duration>5.0</duration>
+		<from>/home/ljd/py/2014-04-28 10.24.20.jpg</from>
+		<to>/home/ljd/py/2014-04-28 10.23.44.jpg</to>
+	</transition>
+	<static>
+		<duration>595.0</duration>
+		<file>/home/ljd/py/2014-04-28 10.23.44.jpg</file>
+	</static>
+	<transition>
+		<duration>5.0</duration>
+		<from>/home/ljd/py/2014-04-28 10.23.44.jpg</from>
+		<to>/home/ljd/py/2014-04-30 10.28.52.jpg</to>
+	</transition>
+	<static>
+		<duration>595.0</duration>
+		<file>/home/ljd/py/2014-04-30 10.28.52.jpg</file>
+	</static>
+	<transition>
+		<duration>5.0</duration>
+		<from>/home/ljd/py/2014-04-30 10.28.52.jpg</from>
+		<to>/home/ljd/py/2014-04-30 10.28.46.jpg</to>
+	</transition>
+	<static>
+		<duration>595.0</duration>
+		<file>/home/ljd/py/2014-04-30 10.28.46.jpg</file>
+	</static>
+	<transition>
+		<duration>5.0</duration>
+		<from>/home/ljd/py/2014-04-30 10.28.46.jpg</from>
+		<to>/home/ljd/py/2014-04-30 10.28.42.jpg</to>
+	</transition>
+</background>
+

@@ -1,0 +1,661 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<Contacts>
+    <Contact>
+        <Name>朱露盈</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">646501</Phone>
+            <Phone Type="2">18868136501</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>朱慧仙</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">686786</Phone>
+            <Phone Type="2">15158066786</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>周玉燕</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">646533</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>周长伟</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">679137</Phone>
+            <Phone Type="2">18329199137</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>钟丽姿</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">685105</Phone>
+            <Phone Type="2">15158065105</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>郑新红</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">664959</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>张程科</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">676525</Phone>
+            <Phone Type="2">18868136525</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>曾红日</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">684402</Phone>
+            <Phone Type="2">15158064402</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>曾国鹏</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">649192</Phone>
+            <Phone Type="2">18329199192</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>俞红婷</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">684296</Phone>
+            <Phone Type="2">15158064296</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>游志远</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">637301</Phone>
+            <Phone Type="2">13777361301</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>杨倩楠</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">694016</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>徐姗姗</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">683875</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>心理预约</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">86928060</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>小强</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">664768</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>小奇杭州号</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">15158064689</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>小奇短号</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">674698</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>吴勇华</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">678451</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>邬家露</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">679064</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>王贻祥</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">671471</Phone>
+            <Phone Type="2">15700061471</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>王剑飞</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">629024</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>汪经宝</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">651167</Phone>
+            <Phone Type="2">15158071167</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>团长</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">622757</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>仝英霞</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">661965</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>孙莉娜</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">662736</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>孙坚</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">686016</Phone>
+            <Phone Type="2">18868136016</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>苏秋桥</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">679174</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>潘俊豪</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">646532</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>孟月</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">671516</Phone>
+            <Phone Type="2">15700061516</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>毛荷倩</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">669170</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>萝卜</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">655944</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>领导短号</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">660723</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>林伟</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">640627</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>李文军</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">13616853811</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>SIM</Name>
+            <Type>com.android.contacts.sim</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>李老师</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">592972</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>李蓝天</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">660331</Phone>
+            <Phone Type="2">15158060331</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>冷宇聪</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">647872</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>老婆</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">18657586680</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>SIM</Name>
+            <Type>com.android.contacts.sim</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>蒋瑶琪</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">694576</Phone>
+            <Phone Type="2">13735534576</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>姜烽</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">979302</Phone>
+            <Phone Type="2">679302</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>家里</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="7">85209895</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>SIM</Name>
+            <Type>com.android.contacts.sim</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>会长</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">699201</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>胡老师</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">595117</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>胡静</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">661474</Phone>
+            <Phone Type="2">15700061474</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>洪恒之</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">678125</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>何雪芸</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">657916</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>工作学姐</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">659255</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>菲菲</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">15657573158</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>SIM</Name>
+            <Type>com.android.contacts.sim</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>戴玲松</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">664224</Phone>
+            <Phone Type="2">18329184224</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>大个</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">660815</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>聪聪</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">664480</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>聪长号</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">13175004800</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>陈宗义</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">695932</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>陈蓉蓉</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">610935</Phone>
+            <Phone Type="2">18868820980</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>陈佳浩</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">675325</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>陈琛</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">671507</Phone>
+            <Phone Type="2">15700061507</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>柴辅导员</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">592699</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+    <Contact>
+        <Name>贝贝</Name>
+        <Starred>0</Starred>
+        <PhoneList>
+            <Phone Type="2">664680</Phone>
+        </PhoneList>
+        <Account value="0">
+            <Name>default</Name>
+            <Type>com.android.contacts.default</Type>
+        </Account>
+    </Contact>
+</Contacts>

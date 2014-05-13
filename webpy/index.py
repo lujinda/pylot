@@ -30,4 +30,4 @@ class error404:
 		return render.error(ERROR_404)#4040 file not found
 if __name__=='__main__':
 	app=web.application(urls,globals())
-	app.run()
+	app.gaerun()

@@ -15,4 +15,5 @@ lines=[]
 for line in fileinput.input():
         lines.append(line)
 text="".join(lines)
+print text
 print file_pat.sub(replacement,text)

@@ -1,24 +1,23 @@
 # -*- coding: utf-8 -*-
-"""
-部分变量，函数说明：
-notUrl这个地址是特确认收货的页面地址
-post是经postData,urlencode后的
-ex表示着快递的意思，getCheckCode是用来下载验证码到本地，然后由用户自己输入
-showExInfo()用来显示未确认收货宝贝的物流信息(其实getExInfo才是，它只是为getExInfo提供了，所需要的数据,它用来显示宝贝名字)，getExInfo()显示对应宝贝的物流信息
-"""
-import urllib,urllib2,chardet,cookielib,re,json
+import urllib,urllib2,cookielib,re,json
+import threading
+import tempfile
+import xml.etree.ElementTree as et
+import sys
+import getpass
+import atexit
+import itertools
+
 hds={
         'User-Agent': "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36"
 }
- 
+idUrl="http://try.taobao.com/json/ajaxGetUserAddress.htm?&_input_charset=utf-8&only=true"
 url='https://login.taobao.com/member/login.jhtml'#登录地址,login address
-notUrl='http://trade.taobao.com/trade/itemlist/listBoughtItems.htm?action=itemlist/QueryAction&event_submit_do_query=1&auctionStatus=SEND'#这是待确认收货地址
-#username=raw_input('请输入用户:')
-#password=raw_input('请输入密码:')
 class taobao(): 
-    def __init__(self,user,pwd):
+    def __init__(self,pwd):
+        self.setValue()
         self.postData = {
-                'TPL_username':unicode(user,'utf8').encode('gbk'),
+                'TPL_username':self.username.encode('gbk'),
                 'TPL_password':pwd,
                 'TPL_redirect_url':'http://www.taobao.com',  
                 'callback':'1',  
@@ -49,6 +48,19 @@ class taobao():
                 'TPL_checkcode':'',
                 'need_check_code':'',
                 }
+        self.connter=0
+
+    def setValue(self):
+        try:
+            tree=et.parse("tb.xml")
+            root=tree.getroot()
+            self.fWord=root.find("word").text
+            self.username=root.find("name").text
+            self.Max=int(root.find("max").text)
+            self.Min=int(root.find("min").text)
+        except:
+            print "tb.xml配置不存在，或配置有误哦!"
+            sys.exit(1)
 
     def loginTaobao(self):
         cookiejar=cookielib.LWPCookieJar()
@@ -63,10 +75,10 @@ class taobao():
             self.getCheckCode(checkCodeUrl)
             self.sendPost(url)
     def getCheckCode(self,url):
-        fd=open("/data/_taobao_t.jpg",'wb')
+        fd=open("_taobao_t.jpg",'wb')
         fd.write(urllib2.urlopen(url).read())
         fd.close()
-        checkCode=raw_input('请输入验证码，验证码在(/data/_taobao_t.jpg):')
+        checkCode=raw_input('请输入验证码，验证码在(当前目录_taobao_t.jpg):')
         self.postData['TPL_checkcode']=checkCode
         self.postData['need_check_code']="true"
     def sendPost(self,url):
@@ -79,31 +91,102 @@ class taobao():
         if  not resultText['state']:
             print resultText['message']
         else:
-            self.showExInfo()
-    def showExInfo(self):
-        AgoUrl='http://trade.taobao.com'#前缀，等下要加到查物流地址前的
-        pageData=unicode(urllib2.urlopen(notUrl).read(),'gbk').encode('utf8')
-        re_name=re.compile(r'<a class=\"baobei\-name\".*?>(.+?)</a>',re.S)#匹配宝贝名字
-        re_url=re.compile(r'<a href=.*?data\-url=\"(/.*)\">')#匹配物流地址
-        names=self.getData(pageData,re_name)#获取匹配结果
-        EXurl=[ AgoUrl+x for x in self.getData(pageData,re_url)]#加上前缀
-        for name in names:
-            print name,
-            self.getEX(EXurl[names.index(name)])
-        
-    def getEX(self,url):
-        exText=json.loads(unicode(urllib2.urlopen(url).read(),'gbk').encode('utf8'))
+            print "登录成功!"
+            self.showInfo()
+    
+    def showInfo(self):
+        #self.readInfo()
+        self.t_getUid=threading.Thread(target=self.getUid)
+        self.t_getUid.start()
+        urls=itertools.imap(lambda x:"http://try.taobao.com/item/newItemList.htm?tab=2&page=%d&anchor=true&_input_charset=utf-8" %x,range(2,100))
         try:
-            print exText['expressName'] +":" +exText['expressId']
-            exInfo=exText['address']
-            exInfo.reverse()
-            for data in exInfo:
-                print data['time']+":" +data['place']
-        except:
-            print '无物流信息'
-    def getData(self,data,re_data):
-        return re_data.findall(data)
+            for url in urls:
+                if self.connter>50:
+                    break
+                self.readPage(url)
+        except KeyboardInterrupt:
+            print "Bye!!\n申请成功%d件..."%self.connter
+            self.t_getUid.join()
+            try:
+                tryData=self.getTryCard()
+                print u"总申请:%s,成功:%s\n总报告:%s,精华:%s\n淘宝等级:Lv %s,试用豆:%s" \
+                    %(tryData["requestNum"],tryData["successNum"]
+                            ,tryData["reportsNum"],tryData["primeReportNum"],
+                            tryData["level"],tryData["tryBeansNum"]
+                            )
+            except:
+                pass
+            sys.exit(0)
+
+    def getUid(self):
+        url="http://trade.taobao.com/trade/itemlist/list_bought_items.htm"
+        req=urllib2.Request(url,None,hds)
+        page=urllib2.urlopen(req)
+        re_userid=re.compile(r"userid=(\d+)")
+        self.userid=re_userid.findall(page.read())[0]
+        page.close()
+        
+        
+    def getTryCard(self):
+        url="http://try.taobao.com/json/try_user_card.htm?user_id=%s&_input_charset=utf-8" %self.userid
+        jsonData=urllib2.urlopen(url).read().decode("gbk")
+        return json.loads(jsonData)["data"]
+    
+        
+
+    def readPage(self,itemUrl):
+        req=urllib2.Request(itemUrl,None,hds)
+        page=urllib2.urlopen(req).read()
+        resultText=json.loads(page)
+        for data in resultText["below"]["data"]:
+            title=self.urlDecode(data["title"])
+            jiage=int(data["currentPrice"])
+            if self.Min <= jiage <=self.Max and \
+                    (not re.search(u"%s"%("|".join(self.fWord)),
+                        title)):
+                print title,jiage
+                self.readItem(data["itemDetailUrl"])
+
+    def readItem(self,url):
+        req=urllib2.Request(url,None,hds)
+        page=urllib2.urlopen(req).read()
+        itemId=re.findall(r"id=(\d+)",url)[0]
+        token=re.findall(r"<input name=\'_tb_token_\'.+value=\'(.+)\'>",page)[0]
+        r_q=re.compile(r"<div class=\"question\".+<em>(.+?)</em>.+<a href=\"(.+)\" target=\"_blank\">.+</div>")
+        que,url=r_q.findall(page)[0]
+        self.findA(que,url,itemId,token)
+
+    def findA(self,que,url,itemId,token):
+        page=urllib2.urlopen(url).read()
+        try:
+            try:
+                a,q=re.findall(r"<li .*title=\"&nbsp;(.+)\">(%s):" %repr(que)[1:-1],page)[0]
+                a=self.urlDecode(a).encode("utf8")
+                q=q.decode("gbk").encode("utf8")
+            except:
+                a,q=re.findall(r"<li .*title=\" (.+)\">(%s):" %que.decode("gbk"),page.decode("gbk"))[0]
+                a=a.encode("utf8")
+                q=q.encode("utf8")
+            postUrl="http://try.taobao.com/json/pre_apply.do?_tb_token_=%s&q=%s&a=%s&itemId=%s&_input_charset=utf-8"%(token,urllib.quote(q),urllib.quote(a),itemId)
+            msg=json.loads(urllib2.urlopen(postUrl).read())
+            if msg["isSuccess"]:
+                idPage=json.loads(urllib2.urlopen(idUrl).read().decode("gbk"))
+                addId=idPage["data"][0]["id"]
+                self.sendAdd(itemId,msg["_tb_token_"],q,a,addId)
+                self.connter+=1
+                print "Ok"
+        except Exception,e:
+            print "Error!"
+    
+    def sendAdd(self,itemId,token,q,a,addId):
+        url="http://try.taobao.com/json/apply.do?_tb_token_=%s&q=%s&a=%s&itemId=%s&&_input_charset=utf-8&addressId=%s&from=matrixtry&pageId=0&moduleId=0" %(token,urllib.quote(q),urllib.quote(a),itemId,addId)
+        urllib2.urlopen(url)
+
+    def urlDecode(self,value):
+        return re.sub(r"&#(\d+);",lambda x:unichr(int(x.group(1))),value)
+
 if __name__=='__main__':
-    tb=taobao('912766762aqq','yulipingzxc123')
+    password=getpass.getpass()
+    tb=taobao(password)
     tb.loginTaobao()
     
