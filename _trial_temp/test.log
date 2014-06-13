@@ -1,0 +1,18 @@
+2014-06-12 23:07:23+0800 [-] Log opened.
+2014-06-12 23:07:23+0800 [-] --> tw_unittest.PoetryTestCase.test_client <--
+2014-06-12 23:07:23+0800 [-] using set_wakeup_fd
+2014-06-12 23:07:23+0800 [-] PoetryServerFactory starting on 47013
+2014-06-12 23:07:23+0800 [-] Starting factory <tw_unittest.PoetryServerFactory instance at 0x2fbf518>
+2014-06-12 23:07:23+0800 [-] Starting factory <tw_unittest.PoetryClientFactory instance at 0x2fbfb90>
+2014-06-12 23:07:23+0800 [PoetryClientProtocol,client] Stopping factory <tw_unittest.PoetryClientFactory instance at 0x2fbfb90>
+2014-06-12 23:07:23+0800 [-] (TCP Port 47013 Closed)
+2014-06-12 23:07:23+0800 [-] Stopping factory <tw_unittest.PoetryServerFactory instance at 0x2fbf518>
+2014-06-12 23:07:23+0800 [-] Main loop terminated.
+2014-06-12 23:07:23+0800 [-] --> tw_unittest.PoetryTestCase.test_failure <--
+2014-06-12 23:07:23+0800 [-] PoetryServerFactory starting on 34357
+2014-06-12 23:07:23+0800 [-] Starting factory <tw_unittest.PoetryServerFactory instance at 0x2f4f998>
+2014-06-12 23:07:23+0800 [-] Starting factory <tw_unittest.PoetryClientFactory instance at 0x2fc3dd0>
+2014-06-12 23:07:23+0800 [Uninitialized] Stopping factory <tw_unittest.PoetryClientFactory instance at 0x2fc3dd0>
+2014-06-12 23:07:23+0800 [-] (TCP Port 34357 Closed)
+2014-06-12 23:07:23+0800 [-] Stopping factory <tw_unittest.PoetryServerFactory instance at 0x2f4f998>
+2014-06-12 23:07:23+0800 [-] Main loop terminated.
