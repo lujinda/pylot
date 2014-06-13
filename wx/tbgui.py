@@ -23,7 +23,7 @@ hds={
 }
  
 url='https://login.taobao.com/member/login.jhtml'#登录地址,login address
-notUrl='http://trade.taobao.com/trade/itemlist/listBoughtItems.htm?action=itemlist/QueryAction&event_submit_do_query=1&auctionStatus=SEND'#这是待确认收货地址
+notUrl='http://trade.taobao.com/trade/itemlist/listBoughtItems.htm?action=itemlist/QueryAction&event_submit_do_query=1&auctionStatus=SEND&tradeRemindFrom=SEND'
 searchUrl='http://trade.taobao.com/trade/itemlist/list_bought_items.htm?search'
 balanceUrl='http://i.taobao.com/json/getFinanceBalance.htm'
 jfUrl='http://i.taobao.com/json/privilege.htm'
@@ -383,11 +383,11 @@ class taobao():
     def getName(self,url):#获取宝贝名字
         req=urllib2.Request(url,None,hds)
         self.pageData=urllib2.urlopen(req).read().decode("gbk","ignore").encode('utf8')
-        re_name=re.compile(r'<a class=\"baobei\-name\".*?>(.+?)</a>',re.S)#匹配宝贝名字
+        re_name=re.compile(r'<p class=\"baobei\-name\".*?>.+?<a.+?>(.+?)</a>',re.S)#匹配宝贝名字
         return re_name.findall(self.pageData)
     def getDealTime(self):
-        re_time=re.compile(r'<span class=\"deal\-time\">(.+?)</span>')
-        re_pay=re.compile(r'<strong>(.+?)</strong>')
+        re_time=re.compile(r'<span class=\"dealtime\">(.+?)</span>')
+        re_pay=re.compile(r'<em class=\"real\-price.+?\">(.+?)</em>')
         #re_jpg=re.compile(r'<img.+?alt=.+?src=\"(http://.+?\.jpg).+?\"\/>')
         re_jpg=re.compile(r'<img.+?src=\"(http://.+?\.jpg).+?\"/>')
         return map(None,re_time.findall(self.pageData),re_pay.findall(self.pageData),re_jpg.findall(self.pageData))

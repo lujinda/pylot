@@ -505,12 +505,30 @@ class panFrame(wx.Frame):
         data=self.spaceItem[Id]
         mess='文件名:%s\n大小:%s \n时间:%s \n文件被修改时间:%s\nmd5:%s'%(data['server_filename'].encode('utf8'),str(round(float(data['size'])/1024/1024.0,2))+'MB',self.strTime(data['server_mtime']),self.strTime(data['local_mtime']),data['md5'].encode('utf8'))
         wx.MessageDialog(self.panel,mess,'文件详情',style=(wx.OK)).ShowModal()
+
+    def getDownData(self,fdlist):
+        postData={
+                "fidlist":"[%s]"%fdlist,
+                "type":"dlink",
+                }
+        url="http://pan.baidu.com/api/download?channel=chunlei&clienttype=0&web=1&bdstoken=%s"%self.bdstoken
+        post=urllib.urlencode(postData)
+        req=urllib2.Request(url,post,hds)
+        print post
+        print url
+        print hds
+        print urllib2.urlopen(req).read()
+
+
+
     def downFile(self): 
         dialog=wx.MessageDialog(self,'是否需要使用浏览器下载?','下载方式',style=wx.YES_NO)
         reqDialog=dialog.ShowModal()
         fileDict={}
         Id=self.spaceList.GetSelection()
         data=self.spaceItem[Id]
+        fdlist=data["fs_id"]
+        downData=self.getDownData(fdlist)
         req=urllib2.Request(data['dlink'],None,hds)
         page=urllib2.urlopen(req)
         url=page.geturl()

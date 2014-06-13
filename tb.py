@@ -64,6 +64,7 @@ class taobao():
 
     def loginTaobao(self):
         cookiejar=cookielib.LWPCookieJar()
+        self.c=cookiejar
         cookieSupport=urllib2.HTTPCookieProcessor(cookiejar)
         opener=urllib2.build_opener(cookieSupport,urllib2.HTTPHandler())
         urllib2.install_opener(opener)
@@ -92,8 +93,15 @@ class taobao():
             print resultText['message']
         else:
             print "登录成功!"
+            self.getTbToken()
             self.showInfo()
     
+    def getTbToken(self):
+        url="http://trade.taobao.com/trade/itemlist/list_bought_items.htm"
+        req=urllib2.urlopen(url)
+        self.token=re.findall(r".+name=\"_tb_token_\" value=\"(.+?)\"",req.read())[0]
+        req.close()
+
     def showInfo(self):
         #self.readInfo()
         self.t_getUid=threading.Thread(target=self.getUid)
@@ -129,6 +137,7 @@ class taobao():
         
     def getTryCard(self):
         url="http://try.taobao.com/json/try_user_card.htm?user_id=%s&_input_charset=utf-8" %self.userid
+        print url
         jsonData=urllib2.urlopen(url).read().decode("gbk")
         return json.loads(jsonData)["data"]
     
@@ -167,7 +176,11 @@ class taobao():
                 a,q=re.findall(r"<li .*title=\" (.+)\">(%s):" %que.decode("gbk"),page.decode("gbk"))[0]
                 a=a.encode("utf8")
                 q=q.encode("utf8")
+            finally:
+                self.shopId=re.findall(r"shopId:\"(\d+)\"",page)[0]
+                self.itemId=re.findall(r"itemId:\"(\d+)\"",page)[0]
             postUrl="http://try.taobao.com/json/pre_apply.do?_tb_token_=%s&q=%s&a=%s&itemId=%s&_input_charset=utf-8"%(token,urllib.quote(q),urllib.quote(a),itemId)
+                
             msg=json.loads(urllib2.urlopen(postUrl).read())
             if msg["isSuccess"]:
                 idPage=json.loads(urllib2.urlopen(idUrl).read().decode("gbk"))
@@ -176,11 +189,30 @@ class taobao():
                 self.connter+=1
                 print "Ok"
         except Exception,e:
-            print "Error!"
+            print "Error"
     
     def sendAdd(self,itemId,token,q,a,addId):
         url="http://try.taobao.com/json/apply.do?_tb_token_=%s&q=%s&a=%s&itemId=%s&&_input_charset=utf-8&addressId=%s&from=matrixtry&pageId=0&moduleId=0" %(token,urllib.quote(q),urllib.quote(a),itemId,addId)
+        #self.addFav()
         urllib2.urlopen(url)
+    
+    def addFav(self):
+        url="http://favorite.taobao.com/popup/add_collection.htm"
+        for postData in self.mkFavPost():
+            hds={
+        'User-Agent': "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36",
+        "Origin":"http://favorite.taobao.com",
+        "Referer":"http://favorite.taobao.com/popup/add_collection_2.htm?id=%s&itemtype=%s&is_tmall="%(postData["id"],postData["itemtype"])
+            }
+            req=urllib2.Request(url,urllib.urlencode(postData),hds)
+            urllib2.urlopen(req)
+        
+    
+    def mkFavPost(self):
+        return map(lambda x,y:dict([("itemtype",x),
+            ("id",y),
+            ("_tb_token_",self.token)]),
+            map(str,range(2)),(self.shopId,self.itemId))
 
     def urlDecode(self,value):
         return re.sub(r"&#(\d+);",lambda x:unichr(int(x.group(1))),value)
