@@ -6,6 +6,9 @@ import shelve
 import sys
 import re
 import optparse
+import logging
+
+log_file="/var/log/countdown.log"
 
 def parse_args():
     usage="usage: %prog [set]"
@@ -48,9 +51,19 @@ class commandHandler():
         
 class countDown(commandHandler):
     def __init__(self):
+        self.__conflog()
+        
         self.re_thing=re.compile(r"\"(.+?)\"")
         self.database=shelve.open(DB_PATH,'c')
         self.handler("show")
+
+    def __conflog(self):
+        self.logger=logging.getLogger("countDown")
+        handler=logging.FileHandler(log_file)
+        formatter=logging.Formatter("%(asctime)s %(message)s")
+        handler.setFormatter(formatter)
+        self.logger.addHandler(handler)
+        self.logger.setLevel(logging.INFO)
 
     def do_show(self,line):
         self.listItem={}
@@ -107,7 +120,9 @@ class setData(countDown):
             except:
                 print "请输入正确日期!"
                 return None
+            
             self.database[thing]=date
+            self.logger.info("%s >> %s"%(thing,date))
             self.handler("show")
         except (KeyError,ValueError):
             print "请正确输入(事件名:事件发生日期):"
@@ -123,13 +138,17 @@ class setData(countDown):
     
     def do_del(self,line):
         try:
-            del self.database[self.getKey(line)]
+            thing=self.getKey(line)
+            time=self.database[thing]
+            del self.database[thing]
+            self.logger.info("del %s at %s"%(thing,time))
             self.handler("show")
         except:
             pass
 
     def do_delall(self,line):
         self.database.clear()
+        self.logger.info("del all things")
 
 def main():
     action=parse_args()

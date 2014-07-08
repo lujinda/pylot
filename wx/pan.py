@@ -80,8 +80,9 @@ hds={
         'Referer':'http://pan.baidu.com/disk/home',
         }
 tbHds={
-        'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36',
-        'Referer':'http://tieba.baidu.com/'
+        'User-Agent':'BaiduTieba for Android 6.1.6',
+        'Referer':'http://tieba.baidu.com/',
+        'Host':'http://c.tieba.baidu.com/',
         }
 loginUrl='https://passport.baidu.com/v2/api/?login'
 
@@ -152,6 +153,7 @@ class panFrame(wx.Frame):
             qdPost['kw']=kw
             qdPost['tbs']=self.getTbs('http://tieba.baidu.com/f?kw=%s&fr=index'%kw)
             qdData=urllib.urlencode(qdPost)
+            
             req=urllib2.Request(url,qdData,tbHds)
             error=json.loads(urllib2.urlopen(req).read())['error']
             qdResult[kw]=error or u'签到成功'

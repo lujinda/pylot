@@ -1,8 +1,6 @@
-#coding:utf-8
-class text():
-    def __init__(self,fun,*args,**kwargs):
-        self.args=args
-    def p(self):
-        print self.args
-t=text('abc','defasd')
-t.p()
+from twisted.internet import reactor
+from twisted.web import proxy, server
+
+site = server.Site(proxy.ReverseProxyResource('www.yahoo.com', 80, ''))
+reactor.listenTCP(808, site)
+reactor.run()

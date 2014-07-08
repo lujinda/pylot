@@ -2,6 +2,8 @@ from twisted.internet import reactor
 from twisted.internet.protocol import Protocol,Factory
 from twisted.internet import defer
 from twisted.protocols.basic import LineReceiver
+from twisted.application import internet,service
+from twisted.python import log
 
 
 class commaneHandler:
@@ -58,6 +60,7 @@ class Room(commaneHandler):
 class LoginRoom(Room):
     def add(self,session):
         Room.add(self,session)
+        log.msg("Connection from %s "%session.session.getPeer())
         session.write("Welcome to ChatTest for twisted v1.1!\n")
     def do_login(self,session,line):
         parts=line.strip().split(" ")
@@ -90,7 +93,9 @@ class LogoutRoom(Room):
 class ChatRoom(Room):
     def add(self,session):
         session.write("Welcome to ChatRoom:%s !\n"%self.roomName)
-        self.broadcast(session.name+" has join the room")
+        mess=session.name+" has join the room"
+        self.broadcast(mess)
+        log.msg(mess)
         Room.add(self,session)
         self.server.users[session.name]=session
     
@@ -186,7 +191,14 @@ class ChatFactory(Factory):
     def createRoom(self,name):
         self.rooms[name]=ChatRoom(self,name)
         
+port=1234
+iface="0.0.0.0"
+application=service.Application("chatRoom")
+top_service=service.MultiService()
+factory=ChatFactory()
+tcp_service=internet.TCPServer(port,factory,
+        interface=iface)
+tcp_service.setServiceParent(top_service)
+top_service.setServiceParent(application)
 
-reactor.listenTCP(1234,ChatFactory())
-reactor.run()
 

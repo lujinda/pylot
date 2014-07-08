@@ -1,35 +1,144 @@
-2014-05-16 16:06:45+0800 [-] Log opened.
-2014-05-16 16:06:45+0800 [-] twistd 11.1.0 (/usr/bin/python 2.7.3) starting up.
-2014-05-16 16:06:45+0800 [-] reactor class: twisted.internet.pollreactor.PollReactor.
-2014-05-16 16:06:45+0800 [-] Traceback (most recent call last):
-2014-05-16 16:06:45+0800 [-]   File "/usr/bin/twistd", line 14, in <module>
-2014-05-16 16:06:45+0800 [-]     run()
-2014-05-16 16:06:45+0800 [-]   File "/usr/lib/python2.7/dist-packages/twisted/scripts/twistd.py", line 27, in run
-2014-05-16 16:06:45+0800 [-]     app.run(runApp, ServerOptions)
-2014-05-16 16:06:45+0800 [-]   File "/usr/lib/python2.7/dist-packages/twisted/application/app.py", line 652, in run
-2014-05-16 16:06:45+0800 [-]     runApp(config)
-2014-05-16 16:06:45+0800 [-]   File "/usr/lib/python2.7/dist-packages/twisted/scripts/twistd.py", line 23, in runApp
-2014-05-16 16:06:45+0800 [-]     _SomeApplicationRunner(config).run()
-2014-05-16 16:06:45+0800 [-]   File "/usr/lib/python2.7/dist-packages/twisted/application/app.py", line 390, in run
-2014-05-16 16:06:45+0800 [-]     self.postApplication()
-2014-05-16 16:06:45+0800 [-]   File "/usr/lib/python2.7/dist-packages/twisted/scripts/_twistd_unix.py", line 208, in postApplication
-2014-05-16 16:06:45+0800 [-]     self.startApplication(self.application)
-2014-05-16 16:06:45+0800 [-]   File "/usr/lib/python2.7/dist-packages/twisted/scripts/_twistd_unix.py", line 317, in startApplication
-2014-05-16 16:06:45+0800 [-]     service.IService(application).privilegedStartService()
-2014-05-16 16:06:45+0800 [-]   File "/usr/lib/python2.7/dist-packages/twisted/application/service.py", line 277, in privilegedStartService
-2014-05-16 16:06:45+0800 [-]     service.privilegedStartService()
-2014-05-16 16:06:45+0800 [-]   File "/usr/lib/python2.7/dist-packages/twisted/application/internet.py", line 370, in privilegedStartService
-2014-05-16 16:06:45+0800 [-]     raisedNow[0].raiseException()
-2014-05-16 16:06:45+0800 [-]   File "/usr/lib/python2.7/dist-packages/twisted/python/failure.py", line 370, in raiseException
-2014-05-16 16:06:45+0800 [-]     raise self.type, self.value, self.tb
-2014-05-16 16:06:45+0800 [-] twisted.internet.error.CannotListenError: Couldn't listen on any:22: [Errno 13] Permission denied.
-2014-05-16 16:06:49+0800 [-] Log opened.
-2014-05-16 16:06:49+0800 [-] twistd 11.1.0 (/usr/bin/python 2.7.3) starting up.
-2014-05-16 16:06:49+0800 [-] reactor class: twisted.internet.pollreactor.PollReactor.
-2014-05-16 16:06:49+0800 [-] FTPFactory starting on 2121
-2014-05-16 16:06:49+0800 [-] Starting factory <twisted.protocols.ftp.FTPFactory instance at 0x1f8cb90>
-2014-05-16 23:59:30+0800 [-] Received SIGTERM, shutting down.
-2014-05-16 23:59:30+0800 [-] (TCP Port 2121 Closed)
-2014-05-16 23:59:30+0800 [-] Stopping factory <twisted.protocols.ftp.FTPFactory instance at 0x1f8cb90>
-2014-05-16 23:59:30+0800 [-] Main loop terminated.
-2014-05-16 23:59:30+0800 [-] Server Shut Down.
+2014-06-15 19:14:33+0800 [-] Log opened.
+2014-06-15 19:14:33+0800 [-] twistd 11.1.0 (/usr/bin/python 2.7.3) starting up.
+2014-06-15 19:14:33+0800 [-] reactor class: twisted.internet.pollreactor.PollReactor.
+2014-06-15 19:14:33+0800 [-] Site starting on 1236
+2014-06-15 19:14:33+0800 [-] Starting factory <twisted.web.server.Site instance at 0x26554d0>
+2014-06-15 19:14:41+0800 [HTTPChannel,0,127.0.0.1] 127.0.0.1 - - [15/Jun/2014:11:14:41 +0000] "GET / HTTP/1.1" 200 199 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36"
+2014-06-15 19:14:41+0800 [HTTPChannel,0,127.0.0.1] 127.0.0.1 - - [15/Jun/2014:11:14:41 +0000] "GET /favicon.ico HTTP/1.1" 200 199 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36"
+2014-06-15 19:14:55+0800 [-] Received SIGTERM, shutting down.
+2014-06-15 19:14:55+0800 [-] (TCP Port 1236 Closed)
+2014-06-15 19:14:55+0800 [-] Stopping factory <twisted.web.server.Site instance at 0x26554d0>
+2014-06-15 19:14:55+0800 [-] Main loop terminated.
+2014-06-15 19:14:55+0800 [-] Server Shut Down.
+2014-06-15 20:17:41+0800 [-] Log opened.
+2014-06-15 20:17:41+0800 [-] using set_wakeup_fd
+2014-06-15 20:17:41+0800 [-] twistd 11.1.0 (/usr/bin/python 2.7.3) starting up.
+2014-06-15 20:17:41+0800 [-] reactor class: twisted.internet.pollreactor.PollReactor.
+2014-06-15 20:17:41+0800 [-] PoetryFactory starting on 1237
+2014-06-15 20:17:41+0800 [-] Starting factory <__builtin__.PoetryFactory instance at 0x1877170>
+2014-06-15 20:17:41+0800 [-] PoetryFactory starting on 1236
+2014-06-15 20:17:41+0800 [-] Starting factory <__builtin__.PoetryFactory instance at 0x1877290>
+2014-06-15 20:17:41+0800 [-] loaded a poem from :twisted-intro/poetry/ecstasy.txt
+2014-06-15 20:17:41+0800 [-] loaded a poem from :twisted-intro/poetry/fascination.txt
+2014-06-15 20:17:47+0800 [__builtin__.PoetryFactory] sending 615 bytes of poetry to IPv4Address(TCP, '127.0.0.1', 52663)
+2014-06-15 20:17:49+0800 [__builtin__.PoetryFactory] sending 3003 bytes of poetry to IPv4Address(TCP, '127.0.0.1', 34738)
+2014-06-15 20:33:27+0800 [-] Received SIGTERM, shutting down.
+2014-06-15 20:33:27+0800 [-] (TCP Port 1236 Closed)
+2014-06-15 20:33:27+0800 [-] Stopping factory <__builtin__.PoetryFactory instance at 0x1877290>
+2014-06-15 20:33:27+0800 [-] (TCP Port 1237 Closed)
+2014-06-15 20:33:27+0800 [-] Stopping factory <__builtin__.PoetryFactory instance at 0x1877170>
+2014-06-15 20:33:27+0800 [-] Main loop terminated.
+2014-06-15 20:33:27+0800 [-] Server Shut Down.
+2014-06-15 21:58:08+0800 [-] Log opened.
+2014-06-15 21:58:08+0800 [-] using set_wakeup_fd
+2014-06-15 21:58:08+0800 [-] twistd 11.1.0 (/usr/bin/python 2.7.3) starting up.
+2014-06-15 21:58:08+0800 [-] reactor class: twisted.internet.pollreactor.PollReactor.
+2014-06-15 21:58:08+0800 [-] ProxyFactory starting on 1238
+2014-06-15 21:58:08+0800 [-] Starting factory <__builtin__.ProxyFactory instance at 0x177d098>
+2014-06-15 21:58:10+0800 [__builtin__.ProxyFactory] Fetching poem from server
+2014-06-15 21:58:10+0800 [__builtin__.ProxyFactory] Starting factory <__builtin__.clientFactory instance at 0x1823368>
+2014-06-15 21:58:10+0800 [clientProtocol,client] send 3003 bytes of poetry to IPv4Address(TCP, '127.0.0.1', 53660)
+2014-06-15 21:58:10+0800 [clientProtocol,client] Stopping factory <__builtin__.clientFactory instance at 0x1823368>
+2014-06-15 21:58:11+0800 [__builtin__.ProxyFactory] Using cached poem.
+2014-06-15 21:58:11+0800 [__builtin__.ProxyFactory] send 3003 bytes of poetry to IPv4Address(TCP, '127.0.0.1', 53662)
+2014-06-15 21:58:12+0800 [__builtin__.ProxyFactory] Using cached poem.
+2014-06-15 21:58:12+0800 [__builtin__.ProxyFactory] send 3003 bytes of poetry to IPv4Address(TCP, '127.0.0.1', 53664)
+2014-06-15 21:58:12+0800 [__builtin__.ProxyFactory] Using cached poem.
+2014-06-15 21:58:12+0800 [__builtin__.ProxyFactory] send 3003 bytes of poetry to IPv4Address(TCP, '127.0.0.1', 53665)
+2014-06-15 21:58:13+0800 [__builtin__.ProxyFactory] Using cached poem.
+2014-06-15 21:58:13+0800 [__builtin__.ProxyFactory] send 3003 bytes of poetry to IPv4Address(TCP, '127.0.0.1', 53666)
+2014-06-15 21:58:13+0800 [__builtin__.ProxyFactory] Using cached poem.
+2014-06-15 21:58:13+0800 [__builtin__.ProxyFactory] send 3003 bytes of poetry to IPv4Address(TCP, '127.0.0.1', 53667)
+2014-06-15 22:00:29+0800 [-] Received SIGTERM, shutting down.
+2014-06-15 22:00:29+0800 [-] (TCP Port 1238 Closed)
+2014-06-15 22:00:29+0800 [-] Stopping factory <__builtin__.ProxyFactory instance at 0x177d098>
+2014-06-15 22:00:29+0800 [-] Main loop terminated.
+2014-06-15 22:00:29+0800 [-] Server Shut Down.
+2014-06-19 17:00:51+0800 [-] Log opened.
+2014-06-19 17:00:51+0800 [-] using set_wakeup_fd
+2014-06-19 17:00:51+0800 [-] twistd 11.1.0 (/usr/bin/python 2.7.3) starting up.
+2014-06-19 17:00:51+0800 [-] reactor class: twisted.internet.pollreactor.PollReactor.
+2014-06-19 17:00:51+0800 [-] PoetryFactory starting on 1235
+2014-06-19 17:00:51+0800 [-] Starting factory <__builtin__.PoetryFactory instance at 0x2f3fe18>
+2014-06-19 17:00:53+0800 [__builtin__.PoetryFactory] send 716 bytes to IPv4Address(TCP, '127.0.0.1', 58224)
+2014-06-19 17:00:56+0800 [__builtin__.PoetryFactory] send 716 bytes to IPv4Address(TCP, '127.0.0.1', 58227)
+2014-06-19 17:03:22+0800 [__builtin__.PoetryFactory] send 716 bytes to IPv4Address(TCP, '127.0.0.1', 58245)
+2014-06-19 17:04:07+0800 [-] Received SIGTERM, shutting down.
+2014-06-19 17:04:07+0800 [-] (TCP Port 1235 Closed)
+2014-06-19 17:04:07+0800 [-] Stopping factory <__builtin__.PoetryFactory instance at 0x2f3fe18>
+2014-06-19 17:04:07+0800 [-] Main loop terminated.
+2014-06-19 17:04:07+0800 [-] Server Shut Down.
+2014-06-19 17:04:46+0800 [-] Log opened.
+2014-06-19 17:04:46+0800 [-] using set_wakeup_fd
+2014-06-19 17:04:46+0800 [-] twistd 11.1.0 (/usr/bin/python 2.7.3) starting up.
+2014-06-19 17:04:46+0800 [-] reactor class: twisted.internet.pollreactor.PollReactor.
+2014-06-19 17:04:46+0800 [-] PoetryFactory starting on 1235
+2014-06-19 17:04:46+0800 [-] Starting factory <__builtin__.PoetryFactory instance at 0x1393e18>
+2014-06-19 17:32:19+0800 [__builtin__.PoetryFactory] send 716 bytes to IPv4Address(TCP, '127.0.0.1', 58319)
+2014-06-19 17:32:21+0800 [__builtin__.PoetryFactory] send 716 bytes to IPv4Address(TCP, '127.0.0.1', 58320)
+2014-06-19 17:32:22+0800 [__builtin__.PoetryFactory] send 716 bytes to IPv4Address(TCP, '127.0.0.1', 58321)
+2014-06-19 17:45:28+0800 [__builtin__.PoetryFactory] send 716 bytes to IPv4Address(TCP, '127.0.0.1', 58367)
+2014-06-19 17:46:02+0800 [__builtin__.PoetryFactory] send 716 bytes to IPv4Address(TCP, '127.0.0.1', 58370)
+2014-06-19 17:46:41+0800 [__builtin__.PoetryFactory] send 716 bytes to IPv4Address(TCP, '127.0.0.1', 58373)
+2014-06-19 17:56:22+0800 [__builtin__.PoetryFactory] send 716 bytes to IPv4Address(TCP, '127.0.0.1', 58386)
+2014-06-19 17:57:08+0800 [__builtin__.PoetryFactory] send 716 bytes to IPv4Address(TCP, '127.0.0.1', 58388)
+2014-06-19 17:57:27+0800 [__builtin__.PoetryFactory] send 716 bytes to IPv4Address(TCP, '127.0.0.1', 58391)
+2014-06-19 18:09:54+0800 [-] Received SIGTERM, shutting down.
+2014-06-19 18:09:54+0800 [-] (TCP Port 1235 Closed)
+2014-06-19 18:09:54+0800 [-] Stopping factory <__builtin__.PoetryFactory instance at 0x1393e18>
+2014-06-19 18:09:54+0800 [-] Main loop terminated.
+2014-06-19 18:09:54+0800 [-] Server Shut Down.
+2014-06-27 10:50:26+0800 [-] Log opened.
+2014-06-27 10:50:26+0800 [-] twistd 11.1.0 (/usr/bin/python 2.7.3) starting up.
+2014-06-27 10:50:26+0800 [-] reactor class: twisted.internet.pollreactor.PollReactor.
+2014-06-27 10:50:26+0800 [-] Traceback (most recent call last):
+2014-06-27 10:50:26+0800 [-]   File "/usr/bin/twistd", line 14, in <module>
+2014-06-27 10:50:26+0800 [-]     run()
+2014-06-27 10:50:26+0800 [-]   File "/usr/lib/python2.7/dist-packages/twisted/scripts/twistd.py", line 27, in run
+2014-06-27 10:50:26+0800 [-]     app.run(runApp, ServerOptions)
+2014-06-27 10:50:26+0800 [-]   File "/usr/lib/python2.7/dist-packages/twisted/application/app.py", line 652, in run
+2014-06-27 10:50:26+0800 [-]     runApp(config)
+2014-06-27 10:50:26+0800 [-]   File "/usr/lib/python2.7/dist-packages/twisted/scripts/twistd.py", line 23, in runApp
+2014-06-27 10:50:26+0800 [-]     _SomeApplicationRunner(config).run()
+2014-06-27 10:50:26+0800 [-]   File "/usr/lib/python2.7/dist-packages/twisted/application/app.py", line 390, in run
+2014-06-27 10:50:26+0800 [-]     self.postApplication()
+2014-06-27 10:50:26+0800 [-]   File "/usr/lib/python2.7/dist-packages/twisted/scripts/_twistd_unix.py", line 208, in postApplication
+2014-06-27 10:50:26+0800 [-]     self.startApplication(self.application)
+2014-06-27 10:50:26+0800 [-]   File "/usr/lib/python2.7/dist-packages/twisted/scripts/_twistd_unix.py", line 317, in startApplication
+2014-06-27 10:50:26+0800 [-]     service.IService(application).privilegedStartService()
+2014-06-27 10:50:26+0800 [-]   File "/usr/lib/python2.7/dist-packages/twisted/application/service.py", line 277, in privilegedStartService
+2014-06-27 10:50:26+0800 [-]     service.privilegedStartService()
+2014-06-27 10:50:26+0800 [-]   File "/usr/lib/python2.7/dist-packages/twisted/application/service.py", line 277, in privilegedStartService
+2014-06-27 10:50:26+0800 [-]     service.privilegedStartService()
+2014-06-27 10:50:26+0800 [-]   File "/usr/lib/python2.7/dist-packages/twisted/application/internet.py", line 370, in privilegedStartService
+2014-06-27 10:50:26+0800 [-]     raisedNow[0].raiseException()
+2014-06-27 10:50:26+0800 [-]   File "/usr/lib/python2.7/dist-packages/twisted/python/failure.py", line 370, in raiseException
+2014-06-27 10:50:26+0800 [-]     raise self.type, self.value, self.tb
+2014-06-27 10:50:26+0800 [-] twisted.internet.error.CannotListenError: Couldn't listen on any:8080: [Errno 98] Address already in use.
+2014-06-27 10:50:28+0800 [-] Log opened.
+2014-06-27 10:50:28+0800 [-] twistd 11.1.0 (/usr/bin/python 2.7.3) starting up.
+2014-06-27 10:50:28+0800 [-] reactor class: twisted.internet.pollreactor.PollReactor.
+2014-06-27 10:50:28+0800 [-] Traceback (most recent call last):
+2014-06-27 10:50:28+0800 [-]   File "/usr/bin/twistd", line 14, in <module>
+2014-06-27 10:50:28+0800 [-]     run()
+2014-06-27 10:50:28+0800 [-]   File "/usr/lib/python2.7/dist-packages/twisted/scripts/twistd.py", line 27, in run
+2014-06-27 10:50:28+0800 [-]     app.run(runApp, ServerOptions)
+2014-06-27 10:50:28+0800 [-]   File "/usr/lib/python2.7/dist-packages/twisted/application/app.py", line 652, in run
+2014-06-27 10:50:28+0800 [-]     runApp(config)
+2014-06-27 10:50:28+0800 [-]   File "/usr/lib/python2.7/dist-packages/twisted/scripts/twistd.py", line 23, in runApp
+2014-06-27 10:50:28+0800 [-]     _SomeApplicationRunner(config).run()
+2014-06-27 10:50:28+0800 [-]   File "/usr/lib/python2.7/dist-packages/twisted/application/app.py", line 390, in run
+2014-06-27 10:50:28+0800 [-]     self.postApplication()
+2014-06-27 10:50:28+0800 [-]   File "/usr/lib/python2.7/dist-packages/twisted/scripts/_twistd_unix.py", line 208, in postApplication
+2014-06-27 10:50:28+0800 [-]     self.startApplication(self.application)
+2014-06-27 10:50:28+0800 [-]   File "/usr/lib/python2.7/dist-packages/twisted/scripts/_twistd_unix.py", line 317, in startApplication
+2014-06-27 10:50:28+0800 [-]     service.IService(application).privilegedStartService()
+2014-06-27 10:50:28+0800 [-]   File "/usr/lib/python2.7/dist-packages/twisted/application/service.py", line 277, in privilegedStartService
+2014-06-27 10:50:28+0800 [-]     service.privilegedStartService()
+2014-06-27 10:50:28+0800 [-]   File "/usr/lib/python2.7/dist-packages/twisted/application/service.py", line 277, in privilegedStartService
+2014-06-27 10:50:28+0800 [-]     service.privilegedStartService()
+2014-06-27 10:50:28+0800 [-]   File "/usr/lib/python2.7/dist-packages/twisted/application/internet.py", line 370, in privilegedStartService
+2014-06-27 10:50:28+0800 [-]     raisedNow[0].raiseException()
+2014-06-27 10:50:28+0800 [-]   File "/usr/lib/python2.7/dist-packages/twisted/python/failure.py", line 370, in raiseException
+2014-06-27 10:50:28+0800 [-]     raise self.type, self.value, self.tb
+2014-06-27 10:50:28+0800 [-] twisted.internet.error.CannotListenError: Couldn't listen on any:8080: [Errno 98] Address already in use.

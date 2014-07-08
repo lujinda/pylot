@@ -1,0 +1,11 @@
+2014-06-15 21:21:21+0800 [-] Log opened.
+2014-06-15 21:21:21+0800 [-] using set_wakeup_fd
+2014-06-15 21:21:21+0800 [-] twistd 11.1.0 (/usr/bin/python 2.7.3) starting up.
+2014-06-15 21:21:21+0800 [-] reactor class: twisted.internet.pollreactor.PollReactor.
+2014-06-15 21:21:21+0800 [-] ProxyFactory starting on 1238
+2014-06-15 21:21:21+0800 [-] Starting factory <__builtin__.ProxyFactory instance at 0x293c2d8>
+2014-06-15 21:21:40+0800 [-] Received SIGINT, shutting down.
+2014-06-15 21:21:40+0800 [-] (TCP Port 1238 Closed)
+2014-06-15 21:21:40+0800 [-] Stopping factory <__builtin__.ProxyFactory instance at 0x293c2d8>
+2014-06-15 21:21:40+0800 [-] Main loop terminated.
+2014-06-15 21:21:40+0800 [-] Server Shut Down.

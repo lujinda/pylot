@@ -1,0 +1,15 @@
+import sae
+import web
+import os
+
+urls=(
+        '/time.jpg',"time"
+        )
+app_root=os.path.dirname(__file__)
+
+class time:
+    def GET(self):
+        return open("tb.jpg").read()
+
+app=web.application(urls,globals()).wsgifunc()
+application=sae.create_wsgi_app(app)

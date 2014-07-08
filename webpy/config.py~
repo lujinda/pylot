@@ -1,0 +1,16 @@
+#coding:utf8
+import re,web,time
+render=web.template.render("temp")
+urls=(
+		'/','index',
+		)
+web.config.debug=False
+db_host='127.0.0.1'
+db_dbn='mysql'
+db_user='root'
+db_pw='zxc123'
+db_db='ultrax'
+db=web.database(db_host,dbn=db_dbn,user=db_user,pw=db_pw,db=db_db)	#set database
+d=db.select("pre_forum_post")
+
+    

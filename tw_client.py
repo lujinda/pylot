@@ -1,15 +1,33 @@
-import optparse
-import random
-import sys
+# This is the Twisted Get Poetry Now! client, version 5.0
+
+import optparse, random, sys
 
 from twisted.internet import defer
-from twisted.internet.protocol import Protocol,ClientFactory
+from twisted.internet.protocol import Protocol, ClientFactory
 
-def  parse_args():
-    usage="""usage:%prog [hostname:]port"""
-    parser=optparse.OptionParser(usage)
 
-    _,addresses=parser.parse_args()
+def parse_args():
+    usage = """usage: %prog [options] [hostname]:port ...
+
+This is the Get Poetry Now! client, Twisted version 5.0
+Run it like this:
+
+  python get-poetry.py port1 port2 port3 ...
+
+If you are in the base directory of the twisted-intro package,
+you could run it like this:
+
+  python twisted-client-5/get-poetry.py 10001 10002 10003
+
+to grab poetry from servers on ports 10001, 10002, and 10003.
+
+Of course, there need to be servers listening on those ports
+for that to work.
+"""
+
+    parser = optparse.OptionParser(usage)
+
+    _, addresses = parser.parse_args()
 
     if not addresses:
         print parser.format_help()
@@ -17,101 +35,97 @@ def  parse_args():
 
     def parse_address(addr):
         if ':' not in addr:
-            host="127.0.0.1"
-            port=addr
+            host = '127.0.0.1'
+            port = addr
         else:
-            host,port=addr.split(":",1)
+            host, port = addr.split(':', 1)
 
         if not port.isdigit():
-            parser.error("Ports must be intergers!")
+            parser.error('Ports must be integers.')
 
-        return host,int(port)
-    
-    return map(parse_address,addresses)
+        return host, int(port)
+
+    return map(parse_address, addresses)
+
 
 class PoetryProtocol(Protocol):
-    poem=[]
-    def dataReceived(self,data):
-        self.poem.append(data)
 
-    def connectionLost(self,reason):
-        poem=''.join(self.poem)
+    poem = ''
+
+    def dataReceived(self, data):
+        self.poem += data
+
+    def connectionLost(self, reason):
+        self.poemReceived(self.poem)
+
+    def poemReceived(self, poem):
         self.factory.poem_finished(poem)
 
-class PoetryClientFactory(ClientFactory):
-    protocol=PoetryProtocol
-    def __init__(self,deferred):
-        self.deferred=deferred
 
-    def poem_finished(self,poem):
+class PoetryClientFactory(ClientFactory):
+
+    protocol = PoetryProtocol
+
+    def __init__(self, deferred):
+        self.deferred = deferred
+
+    def poem_finished(self, poem):
         if self.deferred is not None:
-            d,self.deferred=self.deferred,None
+            d, self.deferred = self.deferred, None
             d.callback(poem)
 
-    def clientConnectionFailed(self,connector,reason):
+    def clientConnectionFailed(self, connector, reason):
+        print "error"
         if self.deferred is not None:
-            d,self.deferred=self.deferred,None
+            d, self.deferred = self.deferred, None
             d.errback(reason)
 
-def get_poetry(host,port):
-    d=defer.Deferred()
-    from twisted.internet import reactor
-    factory=PoetryClientFactory(d)
-    reactor.connectTCP(host,port,factory)
-    return d
 
-class GibberishError(Exception):pass
-class CannotCummingsify(Exception):pass
-
-def cummingsify(poem):
-    def success():
-        return poem.lower()
-    def gibberish():
-        raise GibberishError()
-    def bug():
-        raise CannotCummingsify(poem)
+def get_poetry(d,host, port):
+    """
+    Download a poem from the given host and port. This function
+    returns a Deferred which will be fired with the complete text of
+    the poem or a Failure if the poem could not be downloaded.
+    """
     
-    return random.choice([success,gibberish,bug])()
+
+    from twisted.internet import reactor
+    factory = PoetryClientFactory(d)
+    reactor.connectTCP(host, port, factory)
 
 def poetry_main():
-    addressess=parse_args()
-    poems=[]
-    errors=[]
-    
-    def got_poetry(poem):
+    addresses = parse_args()
+
+    from twisted.internet import reactor
+
+    dlist=[]
+
+
+    def got_poem(poem):
         print poem
-        poems.append(poem)
 
     def poem_failed(err):
-        print >>sys.stderr,"The poem download failed."
-        errors.append(err)
+        print >>sys.stderr, 'The poem download failed.'
 
     def poem_done(_):
-        if len(poems)+len(errors)==len(addressess):
-            from twisted.internet import reactor
-            reactor.stop()
+        reactor.stop()
 
-    def cummingsify_failed(err):
-        if err.check(CannotCummingsify):
-            print "Cummingsify failed!"
-            return err.value.args[0]
-        return err
+    def canceler(d):
+        print "shutdown server"
 
-
-    for address in addressess:
-        host,port=address
-        d=get_poetry(host,port)
-        d.addCallback(cummingsify)
-        d.addErrback(cummingsify_failed)
-        d.addCallbacks(got_poetry,poem_failed)
-        d.addBoth(poem_done)
+    for address in addresses:
+        host, port = address
+        d=defer.Deferred(canceler)
+        get_poetry(d,host, port)
+        dlist.append(d)
+        d.addCallbacks(got_poem, poem_failed)
     
-    from twisted.internet import reactor
+    ds=defer.DeferredList(dlist)
+
+    ds.addCallback(poem_done)
+
     reactor.run()
 
-poetry_main()
 
-
-        
-
-
+if __name__ == '__main__':
+    poetry_main()

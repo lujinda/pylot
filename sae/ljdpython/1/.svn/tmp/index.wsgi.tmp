@@ -1,0 +1,7 @@
+import sae
+def app(environ,start_response):
+    status="200 OK"
+    hds=[("Content-type","text/plain")]
+    start_response(status,hds)
+    return ["Hello~"]
+application=sae.create_wsgi_app(app)

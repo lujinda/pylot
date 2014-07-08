@@ -1,0 +1,20 @@
+$def with(bugslist,order="asc")
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>未解决问题</title>
+</head>
+<body>
+    <h3>待解决问题列表</h3> <a href="/yeslist">已解决问题</a>
+    <a href="/">首页</a>
+    <a href="/logout"><i>注销当前用户</i></a><br><hr><br>
+$if order=="desc":
+    <a href="?order=asc">最先预约排前(旧——>新)</a>
+$else:
+    <a href="?order=desc">最新预约排前(新——>旧)</a>
+
+$for i in bugslist:
+    <li id="t1">预约时间:$:i.PostTime<br><b>故障情况:$:i.Content</b><br>姓名:$:i.Name 联系号码:$:i.Phone 寝室:$:i.Room 维修时间:$i.Time<br><a href="?del=$:i.Pid">删除</a> <a href="/yesDeal?add=$:i.Pid">已解决</a><br></li><hr></p>
+
+</body>
+</html>

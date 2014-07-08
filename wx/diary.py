@@ -7,6 +7,10 @@ import os
 import re
 import sys
 import shelve
+import threading
+import urllib
+from qiniu import conf,rs,io
+
 """
     isKeyTrue(userpass)函数用来验证密码是否正确
     OnGet()是单击ListCtrl项时触发的事件，用来取得Text，得到字典key
@@ -16,7 +20,8 @@ import shelve
     
 """
 Db=os.path.join(os.path.dirname(os.path.abspath(sys.argv[0])),'userData.db')
-
+ZONENAME="ljd-dbdata"
+DOMAIN="ljd-dbdata.qiniudn.com"
 
 def openDb(dbUrl):
     return shelve.open(dbUrl,'c')
@@ -73,6 +78,54 @@ class KeyFrame():
         return db['password'] == userpass
         
     
+class qiniuDo():
+    def __init__(self,window):
+        conf.ACCESS_KEY="BbDU4MoFrx2YaF6tqBFmnKHFuDlq1EO-mm2ldlBm"
+        conf.SECRET_KEY="WWdwgm4oRmOh_L9yKbyWplcUFaIGAZXk8e_UOtDs"
+        self.policy=rs.PutPolicy(ZONENAME)
+        self.token=self.policy.token()
+        self.window=window
+        self.filename=os.path.basename(Db).strip()
+
+    def putData(self):
+        import socket
+        socket.setdefaulttimeout(3)
+        try:
+            ret,err=io.put_file(self.token,self.filename,Db)
+            if err:
+                rs.Client().delete(ZONENAME,self.filename)
+                self.putData()
+            else:
+                wx.CallAfter(self.showMsg,"数据库上传成功")
+        except:
+            wx.CallAfter(self.showMsg,"数据库上传失败")
+
+    def showMsg(self,msg):
+        wx.MessageBox('%s'%msg,'提示',wx.OK)
+        
+    
+    def put(self):
+        t=threading.Thread(target=self.putData)
+        t.start()
+    
+    def getData(self):
+        url=rs.make_base_url(DOMAIN,self.filename)
+        policy=rs.GetPolicy()
+        private_url=policy.make_request(url)
+        try:
+            urllib.urlretrieve(private_url,Db)
+        except:
+            wx.CallAfter(self.showMsg,"数据库下载失败")
+        wx.CallAfter(self.window.listDiaries)
+        wx.CallAfter(self.showMsg,"数据库下载成功")
+        
+            
+    
+    def get(self):
+        t=threading.Thread(target=self.getData)
+        t.start()
+
+
 
 class DiaryFrame(wx.Frame):
     def __init__(self):
@@ -81,6 +134,7 @@ class DiaryFrame(wx.Frame):
                 %reduce(lambda x,y:x+y ,[x+y for x,y in zip(time.strftime('%Y %m %d',time.localtime()).split(), ['年','月','日'] )]),
                 size=(600,600),
                 style=wx.CAPTION|wx.CLOSE_BOX|wx.MINIMIZE_BOX)
+        self.pan=qiniuDo(self)
         self.isOpen=False
         self.showElement()
         self.timer=wx.Timer(self,-1)
@@ -193,8 +247,18 @@ class DiaryFrame(wx.Frame):
                 ),
                 ('关于',
                     ('访问作者','',self.OnToMe),
-                    )
+                    ),
+                ('数据同步',
+                    ('上传数据','',self.OnUp),
+                    ('下载数据','',self.OnDown),
+                    ),
                 )
+    
+    def OnUp(self,event):
+        self.pan.put()
+    def OnDown(self,event):
+        self.pan.get()
+
     
     def createMenuBar(self):
         self.menuItem=[]

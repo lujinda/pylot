@@ -13,6 +13,8 @@ self.showDownPro()用来显示下载进度条
 self.startDown()是真正下载文件用的
 readDb()是用来读取数据库文件的，里面会记录着用户名和密码，还有是否要记录密码选项
 writeDb()是用来写入数据库的。
+loginBd()登录百度
+autoLogin()自动登录用的
 """
 import urllib
 import urllib2
@@ -29,8 +31,11 @@ import base64
 import sys
 import os
 import mimetypes
-import anydbm
+import shelve
 import tempfile
+dbUrl=os.path.join(os.path.dirname(os.path.abspath(sys.argv[0])),'.pan.db')
+cjUrl=os.path.join(os.path.dirname(os.path.abspath(sys.argv[0])),'._cj_ljd.txt')
+TempCodeImg=tempfile.mkstemp()[1]+'.gif'
 RemoteDir='/downloads/'
 Time=5000
 loginPost={
@@ -54,6 +59,12 @@ delPost={
 qdPost={
         'ie':'utf-8',
         'kw':'',
+        'BDUSS':'',
+        'model':'ZTE V955',
+        'from':'baidu_appstore',
+        '_client_type':'2',
+        '_client_version':'6.1.3',
+        '_client_id':'wappc_1403864726869_173',
         'tbs':'',
         }
 mkPost={
@@ -75,23 +86,26 @@ hds={
         'Referer':'http://pan.baidu.com/disk/home',
         }
 tbHds={
-        'User-Agent':'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36',
-        'Referer':'http://tieba.baidu.com/'
+        'User-Agent':'BaiduTieba for Android 6.1.3',
+        "Host":"c.tieba.baidu.com",
+        "net":"3",
+
         }
 loginUrl='https://passport.baidu.com/v2/api/?login'
 
 def writeDb(**kwargs):
-    db=anydbm.open(dbUrl,'c')
+    db=shelve.open(dbUrl,'c')
     for key in kwargs:
         db[key]=kwargs[key]
     db.close()
 def readDb(*args):
-    db=anydbm.open(dbUrl,'c')
+    db=shelve.open(dbUrl,'c')
     d={}
     for key in args:
         try:
             d[key]=db[key]
         except:
+            d[key]=''
             break
     db.close()
     return d
@@ -139,16 +153,24 @@ class panFrame(wx.Frame):
         wx.MessageBox('一键签到已开始，稍等一会见结果\n如果有疑问请Q:929300079','签到开始了!')
     def addQd(self):
         url='http://tieba.baidu.com/sign/add'
+      #  url="http://c.tieba.baidu.com/c/c/forum/sign"
+        
         qdResult={}
         for kwUrl,kw in self.getKw():
             kwUrl='http://tieba.baidu.com' + kwUrl
             kw=unicode(kw,'gbk').encode('utf8')
             qdPost['kw']=kw
             qdPost['tbs']=self.getTbs('http://tieba.baidu.com/f?kw=%s&fr=index'%kw)
+            for key in cj:
+                if key.name =="BDUSS":
+                    print key.value
+                    qdPost['BDUSS']=key.value
+            print cj
             qdData=urllib.urlencode(qdPost)
+            
             req=urllib2.Request(url,qdData,tbHds)
-            error=json.loads(urllib2.urlopen(req).read())['error']
-            qdResult[kw]=error or u'签到成功'
+            print urllib2.urlopen(req).read()
+            qdResult[kw]="er" or u'签到成功'
         self.qdEnd(qdResult)
     def qdEnd(self,result):
         mess=''
@@ -160,7 +182,7 @@ class panFrame(wx.Frame):
         tbUrl='http://tieba.baidu.com/f/like/mylike'
         page=urllib2.urlopen(tbUrl).read()
         re_kw=re.compile(r'<a href=\"(.+?)\" title=\"(.+?)\">')
-        return re_kw.findall(page)
+        return re_kw.findall(page)[1:3]
     def getTbs(self,url):
         re_tbs=re.compile(r'PageData.tbs = \"(.+?)\"')
         page=urllib2.urlopen(url).read()
@@ -229,7 +251,9 @@ class panFrame(wx.Frame):
         return (
                 ('设置',
                     ('设置刷新时间\tCtrl-t','设置自动刷新时间',self.setTimer),
-                    ('关闭自动刷新\t','关闭刷新功能',self.offTimer)),
+                    ('关闭自动刷新\t','关闭刷新功能',self.offTimer),
+                    ('关闭自动登录\t','关闭自动登录功能',self.offAuto),
+                    ),
                 )
     def createMenu(self):
         menuBar=wx.MenuBar()
@@ -247,6 +271,10 @@ class panFrame(wx.Frame):
                 self.SetAcceleratorTable(ctrl)
             self.Bind(wx.EVT_MENU,handler,item)
         return menu
+
+    def offAuto(self,event):
+        writeDb(isAuto=False)
+
     def ShowElement(self):
         x=80
         width=500
@@ -362,6 +390,8 @@ class panFrame(wx.Frame):
         return urllib.quote(taskId[1:])
     def createButton(self):
         qdButton=wx.Button(self.panel,-1,'贴吧一键签到',pos=(200,10),size=(-1,-1))
+        ctrl=wx.AcceleratorTable([(wx.ACCEL_CTRL,ord('Q'),qdButton.GetId())])
+        self.SetAcceleratorTable(ctrl)
         self.Bind(wx.EVT_BUTTON,self.OnAddQd,qdButton)
         self.buttonItem=[]
         for data in self.buttonData():
@@ -491,17 +521,36 @@ class panFrame(wx.Frame):
         data=self.spaceItem[Id]
         mess='文件名:%s\n大小:%s \n时间:%s \n文件被修改时间:%s\nmd5:%s'%(data['server_filename'].encode('utf8'),str(round(float(data['size'])/1024/1024.0,2))+'MB',self.strTime(data['server_mtime']),self.strTime(data['local_mtime']),data['md5'].encode('utf8'))
         wx.MessageDialog(self.panel,mess,'文件详情',style=(wx.OK)).ShowModal()
+
+    def getDownData(self,fdlist):
+        postData={
+                "fidlist":"[%s]"%fdlist,
+                "type":"dlink",
+                }
+        url="http://pan.baidu.com/api/download?channel=chunlei&clienttype=0&web=1&bdstoken=%s"%self.bdstoken
+        post=urllib.urlencode(postData)
+        req=urllib2.Request(url,post,hds)
+        print post
+        print url
+        print hds
+        print urllib2.urlopen(req).read()
+
+
+
     def downFile(self): 
         dialog=wx.MessageDialog(self,'是否需要使用浏览器下载?','下载方式',style=wx.YES_NO)
         reqDialog=dialog.ShowModal()
         fileDict={}
         Id=self.spaceList.GetSelection()
         data=self.spaceItem[Id]
+        fdlist=data["fs_id"]
+        downData=self.getDownData(fdlist)
         req=urllib2.Request(data['dlink'],None,hds)
         page=urllib2.urlopen(req)
         url=page.geturl()
         url='http://' + '113.215.0.56' +'/cdn.baidupcs.com/' +url[url.find('file'):]
         if reqDialog == wx.ID_YES:
+            print url
             webbrowser.open_new_tab(url)
         else:
             fileName=data['server_filename']
@@ -590,6 +639,9 @@ class loginFrame(wx.Frame):
                 pos=(30,120))
         self.checkBox=wx.CheckBox(self.panel,-1,'记住密码',
                 pos=(labelPos[0],90))
+        self.autoBox=wx.CheckBox(self.panel,-1,'自动登录',
+                pos=(labelPos[0]+100,90))
+        self.Bind(wx.EVT_CHECKBOX,self.OnCheck,self.autoBox)
         self.checkBox.SetValue(isCheck == '1')
         self.button.SetDefault()
         self.Bind(wx.EVT_BUTTON,self.OnClick,self.button)
@@ -601,6 +653,10 @@ class loginFrame(wx.Frame):
     def OnClose(self,event):
         self.Destroy()
         sys.exit()
+
+    def OnCheck(self,event):
+        if self.autoBox.GetValue():
+            wx.MessageBox("下次登录将自动进入离线下载器界面，不再需要登录~\n如果要取消自动登录，可以在设置菜单中选择\"关闭自动登录!\"","自动登录已开启")
 
     def OnClick(self,event):
         self.bd.t.join()
@@ -614,7 +670,9 @@ class loginFrame(wx.Frame):
                 writeDb(userName=user,passWord=pwd,isCheck='1')
             else:
                 writeDb(userName='',passWord='',isCheck='')
+            writeDb(isAuto=self.autoBox.GetValue())
             self.messLabel.SetLabel("登录成功")
+            cj.save(cjUrl,ignore_discard=True, ignore_expires=True)
             self.Show(False)
             panFrame()
         else:
@@ -663,13 +721,27 @@ class baidu():
             return False
         
 if __name__=='__main__':
-    TempCodeImg=tempfile.mkstemp()[1]+'.gif'
-    dbUrl=os.path.join(os.path.dirname(os.path.abspath(sys.argv[0])),'.pan.db')
-    cj=cookielib.CookieJar()
-    opener=urllib2.build_opener(urllib2.HTTPCookieProcessor(cj),urllib2.HTTPHandler())
-    urllib2.install_opener(opener)
-    mutex=threading.Lock()
+    cj=cookielib.MozillaCookieJar()
     app=wx.App()
-    lFrame=loginFrame(**readDb('userName','passWord','isCheck'))
+    def loginBd():
+        opener=urllib2.build_opener(urllib2.HTTPCookieProcessor(cj),urllib2.HTTPHandler())
+        urllib2.install_opener(opener)
+        mutex=threading.Lock()
+        lFrame=loginFrame(**readDb('userName','passWord','isCheck'))
+
+    def autoLogin():
+        try:
+            cookies=cookielib.MozillaCookieJar(cjUrl)
+            cookies.load(ignore_discard=True,ignore_expires=True)
+            opener=urllib2.build_opener(urllib2.HTTPCookieProcessor(cookies))
+            urllib2.install_opener(opener)
+            panFrame()
+        except Exception,e:
+            loginBd()
+            return False
+    if readDb('isAuto')['isAuto']:
+        autoLogin()
+    else:
+        loginBd()
     app.MainLoop()
     

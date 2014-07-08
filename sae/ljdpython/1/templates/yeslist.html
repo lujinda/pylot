@@ -1,0 +1,25 @@
+$def with(bugslist,order="asc",uid=1)
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>已解决问题</title>
+<style>
+    .divcss5{color:#F00}
+</style>
+</head>
+<body>
+    <h3>已解决问题列表</h3> <a href="/nolist">未解决问题</a>
+    <a href="/">首页</a>
+    <a href="/logout"><i>注销当前用户</i></a><br><hr><br>
+$if order=="desc":
+    <a href="?order=asc">最先解决排前</a>
+$else:
+    <a href="?order=desc">最近解决排前</a>
+
+$for i in bugslist:
+    <li id="t1">预约时间:$:i.PostTime<br><b>故障情况:$:i.Content</b><br><b>用户信息</b>  姓名:$:i.Name 寝室:$:i.Room<p></li><li id="t1"><div class="divcss5">解决方法:$:i.YesWhy<br>解决者:$:i.YesNo 赞! 解决时间:$:i.YesTime</div></li>
+    $if uid==0:<a href="?del=$:i.Pid">删除</a>
+    <hr></p>
+
+</body>
+</html>

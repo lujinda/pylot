@@ -1,0 +1,51 @@
+$def with(pid,bug,mess="")
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<style type="text/css">
+    body{margin:50px}
+    input{
+        width:150px;
+    }
+</style>
+
+<script language="javascript">
+    function checkEmpty(){
+        if(YesDeal.YesContent.value=="" ||Submit.YesNo.value=="")
+        {
+            alert("请保证信息不为空！");
+            return false;
+        }
+        return true;
+    }
+</script>
+
+</head>
+
+<body algin="center" margin=20>
+    <table border="1" cellspacing="0" bordercolor="#000000">
+        <tr><td>
+    故障提交时间:$:bug.PostTime<br>
+    <b>故障情况:<br>
+        $:bug.Content</b>
+    <br>用户信息:<br>
+    姓名:$:bug.Name 寝室:$:bug.Room 联系号码:$:bug.Phone
+</td><tr></table>
+    <br>
+    <form method="post" id="YesDeal" name="YesDeal" onsubmit="return checkEmpty()" action="/yesDeal/post">
+    <h3>故障解决方法</h3>
+    <textarea name="YesContent" cols=40 rows=10 style="overflow:auto" id="Content" /></textarea>
+    <p>你的学号(8位，不加首字母)：<br>
+    <input name="YesNo" id="YesNo" onkeyup="value=value.replace(/[^\d]/g,'') "onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))"/>
+    <input type="hidden" id="YesPid" name="YesPid" value="$:pid">
+    <br>
+    <h4>谢谢你为协会出的一份力，协会有你，更精彩！</h4>
+
+    <input style="width:50px" type="submit" value="提交" />
+<br>
+$mess
+    
+</body>
+</html>

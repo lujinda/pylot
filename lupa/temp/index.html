@@ -1,0 +1,23 @@
+﻿$def with(messages)
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>垃圾信息审核小助手</title>
+
+</head>
+<body>
+<h3><a href="/?clear=yes">刷新并清空缓存信息</a></h3>
+<h3><a href="/?delall=yes">删除以上所有记录</a></h3>
+$for i,data in enumerate(messages.values()):
+    <b>第 $i 条</b> <a href="/?no=$data.pid">这不是垃圾信息</a> <a href="/?del=$data.pid">删除此条</a>
+    $if len(data.message) > 200:
+        $:data.message[:100]<b>...</b>$:data.message[-100:]<p> 
+    $else:
+        $:data.message<p>
+
+<h3><a href="/?clear=yes">刷新并清空缓存信息</a></h3>
+<h3><a href="/?delall=yes">删除以上所有记录</a></h3>
+
+</body>
+</noframes></html>
