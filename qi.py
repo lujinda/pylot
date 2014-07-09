@@ -5,14 +5,18 @@ qiniu.conf.SECRET_KEY="WWdwgm4oRmOh_L9yKbyWplcUFaIGAZXk8e_UOtDs"
 
 import qiniu.rs
 
-policy=qiniu.rs.PutPolicy("ljdpython")
+policy=qiniu.rs.PutPolicy("imgdata")
 uptoken=policy.token()
 
 import qiniu.io
 
 localfile="/home/ljd/py/t.py"
-filename=os.path.basename(localfile)
+import matplotlib.pyplot as plt
+import cStringIO
+s=cStringIO.StringIO()
+plt.xticks(range(1,30))
+plt.savefig(s)
 
-ret,err=qiniu.io.put_file(uptoken,filename,localfile)
+ret,err=qiniu.io.put(uptoken,'a.png',s)
 if err:
     qiniu.rs.Client().delete("ljdpython",filename)

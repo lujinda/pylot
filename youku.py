@@ -29,7 +29,6 @@ class YouKu():
         pass
         
     def parse_url(self,result):
-        print 'ok'
         result=result.decode("gbk")
         soup=bs(result)
         filename=soup("input",attrs={"name":"name"})[0]['value']
@@ -51,7 +50,6 @@ def handler():
     count=0
     for url in readUrl():
         count+=1
-            
         url=url.strip()
         d=getPage("http://www.flvcd.com/parse.php?format=&kw="+url)
         d.addCallback(youku.parse_url)
@@ -63,7 +61,10 @@ def handler():
             print "正在处理五个任务，其他任务稍等"
             ds=defer.DeferredList(dlist,consumeErrors=True)
             yield ds
-            dlist=[]
+            dlist
+    ds=defer.DeferredList(dlist,consumeErrors=True)
+    yield ds
+
         
 if __name__=="__main__":
     youku=YouKu()

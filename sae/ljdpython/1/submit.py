@@ -20,7 +20,7 @@ class sendSubmit:
             __subject=u"在%s 有人向求助我们!"%self.postTime
             __message=u"故障:%s\n用户姓名:%s 寝室:%s 联系方式:%s\n正式的小伙伴们，快去帮帮他吧~"%(data.Content,
                     data.Name,data.Room,data.Phone)
-            send_mail().sendMail(__subject,__message)
+            #send_mail().sendMail(__subject,__message)
             
             return render.frame.main("您的故障情况，我会已收到<br>我们会尽快联系您")
         except Exception,e:

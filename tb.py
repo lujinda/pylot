@@ -71,10 +71,13 @@ class taobao():
         taobao=urllib2.urlopen(url)
         page=taobao.read().decode('gbk')
         r_img=re.compile(r'codeURL:\"(.+?)\"')
-        checkCodeUrl=r_img.findall(page)[0]
+        try:
+            checkCodeUrl=r_img.findall(page)[0]
+        except IndexError:
+            checkCodeUrl=''
         if checkCodeUrl:
             self.getCheckCode(checkCodeUrl)
-            self.sendPost(url)
+        self.sendPost(url)
     def getCheckCode(self,url):
         fd=open("_taobao_t.jpg",'wb')
         fd.write(urllib2.urlopen(url).read())
@@ -137,7 +140,6 @@ class taobao():
         
     def getTryCard(self):
         url="http://try.taobao.com/json/try_user_card.htm?user_id=%s&_input_charset=utf-8" %self.userid
-        print url
         jsonData=urllib2.urlopen(url).read().decode("gbk")
         return json.loads(jsonData)["data"]
     
