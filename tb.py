@@ -195,7 +195,7 @@ class taobao():
     
     def sendAdd(self,itemId,token,q,a,addId):
         url="http://try.taobao.com/json/apply.do?_tb_token_=%s&q=%s&a=%s&itemId=%s&&_input_charset=utf-8&addressId=%s&from=matrixtry&pageId=0&moduleId=0" %(token,urllib.quote(q),urllib.quote(a),itemId,addId)
-        #self.addFav()
+        self.addFav()
         urllib2.urlopen(url)
     
     def addFav(self):

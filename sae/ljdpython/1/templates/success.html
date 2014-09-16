@@ -1,0 +1,30 @@
+$def with(mess)
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<pre>
+$mess
+</pre>
+
+
+<script language="JavaScript1.2" type="text/javascript">  
+    window.parent.frames["topFrame"].location.reload();
+function delayURL(url) {  
+   var delay=document.getElementById("time").innerHTML;  
+
+   if(delay>0){  
+   delay--;  
+   document.getElementById("time").innerHTML=delay;  
+   }else{  
+   window.top.location.href=url;  
+   }  
+setTimeout("delayURL('" + url + "')", 1000);  
+
+}  
+</script>  
+<span id="time" >10</span>  
+秒钟之后自动跳转到首面，如果不跳转，请点击下面链接  
+<a href="/" target="_top">故障预约</a>  
+<script type="text/javascript">  
+delayURL("/");  
+</script>   
+</html

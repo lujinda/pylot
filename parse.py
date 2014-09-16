@@ -2,6 +2,7 @@
 import cv2
 from cv2 import cv
 import sys
+import time
 
 haar_face="/usr/share/opencv/haarcascades/haarcascade_frontalface_alt2.xml"
 haar_mouth="/usr/share/opencv/haarcascades/haarcascade_mcs_mouth.xml"
@@ -27,8 +28,8 @@ def parseVedio(_,fd,filename):
         body=cv.HaarDetectObjects(gray,c_m,newMem3,1.2,2,cv.CV_HAAR_DO_CANNY_PRUNING,(200,200))
         if face and mouth or body:
             count+=1
-            if count >=3:
-                cv.SaveImage("img/out.jpg",img)
+            if count >=5:
+                cv.SaveImage(imgpath,img)
                 return True
         return False
 
@@ -45,6 +46,8 @@ def parseVedio(_,fd,filename):
         if int((i+1)%fps)==0:
             if ifFace(img,size):
                 mess="%s:有脸"%filename
+                imgname=time.strftime("%Y%M%d%H%m%s")+str(i)+'jpg'
+                imgpath="img/%s"%imgname
                 fd.write(mess+'\n')
                 fd.flush()
                 print mess

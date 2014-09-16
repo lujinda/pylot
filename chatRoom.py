@@ -177,7 +177,7 @@ class ChatServer(dispatcher):
         dispatcher.__init__(self)
         self.create_socket(socket.AF_INET,socket.SOCK_STREAM)
         self.set_reuse_addr()
-        self.bind(("",1234))
+        self.bind(("",port))
         self.listen(5)
         self.users={}
         self.main_room=ChatRoom(self,"main")
@@ -188,10 +188,11 @@ class ChatServer(dispatcher):
 
     def handle_accept(self):
         conn,addr=self.accept()
+        print 'connected from ',addr
         ChatSession(self,conn)
 
 if __name__=="__main__":
-    s=ChatServer(1234)
+    s=ChatServer(1440)
     try:
         asyncore.loop()
     except KeyboardInterrupt:

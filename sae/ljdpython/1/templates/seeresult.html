@@ -1,0 +1,36 @@
+$def with(bugslist,words,page=1)
+
+    $def splitStr(string,l):
+        $if len(string)>l:
+            $string[:l]...
+        $else:
+            $string
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<style type="text/css">
+    body{margin:50px}
+    input{
+        width:150px;
+    }
+</style>
+
+</head>
+
+<body algin="center" margin=20>
+
+    <h2>搜索结果</h2><a href="/frame/main.html">返回</a>
+$for bug in bugslist:
+    <li id="t1"><h3><a href="?pid=$bug.Pid" target="_bank">$splitStr(bug.Content,30)</a></h3></li><p>$splitStr(bug.YesWhy,200)<hr></p>
+
+$if page!=1:
+    <a href="?Kw=$words&page=$(page-1)">上一页</a>
+
+$if bugslist:
+    <a href="?Kw=$words&page=$(page+1)">下一页 </a>
+
+</body>
+</html>

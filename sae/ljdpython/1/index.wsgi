@@ -5,6 +5,9 @@ from listbug import *
 from login import *
 from admin import *
 from error import *
+from search import *
+from query import *
+from weixin import *
 
 class index:
     def GET(self):
@@ -22,7 +25,7 @@ class readRight:
     def GET(self):
         return render.frame.right(get_mess(),get_listDb())
 
-class seeData:
+class seeData(CheckLogin): # 查看统计图
     def GET(self):
         data=web.input()
         try:
@@ -38,7 +41,13 @@ class seeData:
 
         return img
 
+class help:
+    def GET(self):
+        return render.help()
+
 app=web.application(urls,globals())
 app.notfound=notfound
+app.internalerror=internalerror
 app=app.wsgifunc()
 application=sae.create_wsgi_app(app)
+

@@ -1,0 +1,46 @@
+$def with(mess="")
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<style type="text/css">
+    body{margin:50px}
+    input{
+        width:150px;
+    }
+</style>
+
+</head>
+
+<body algin="center" margin=20>
+    修改用户名和密码请注意，用户名必须是字母+数字，密码中不允许包含中文和空格.
+    <form method="post" id="RSetKey" name="RSetKey"  action="/admin/setKey/rpost">
+    <h3>管理员账号</h3>
+    账号(1-10位)：<br>
+    <input name="Name" id="Name" />
+    <br>密码(5-16位)：<br>
+    <input name="Pwd1" type="password" id="Pwd1" />
+    <br>再输入一次密码：<br>
+    <input name="Pwd2" type="password" id="Pwd2" />
+    <br>
+    <input style="width:50px" type="submit" value="提交" />
+<p>
+</form>
+
+    <form method="post" id="OSetKey" name="OSetKey"  action="/admin/setKey/opost">
+    <h3>协会成员账号</h3>
+    账号(1-10位)：<br>
+    <input name="Name" id="Name" />
+    <br>密码(5-16位)：<br>
+    <input name="Pwd1" type="password" id="Pwd1" />
+    <br>再输入一次密码：<br>
+    <input name="Pwd2" type="password" id="Pwd2" />
+    <br>
+    <input style="width:50px" type="submit" value="提交" />
+</form>
+<p>
+$:mess
+    
+</body>
+</html>

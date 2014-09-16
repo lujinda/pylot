@@ -1,6 +1,13 @@
-from twisted.internet import reactor
-from twisted.web import proxy, server
+from scapy.all import *
+from threading import Thread
+import time
+ans=[]
 
-site = server.Site(proxy.ReverseProxyResource('www.yahoo.com', 80, ''))
-reactor.listenTCP(808, site)
-reactor.run()
+def sniff_icmp():
+    ans=sniff(iface="docker0",filter="icmp")
+
+t=Thread(target=sniff_icmp)
+t.start()
+while True:
+    print len(ans)
+    time.sleep(1)

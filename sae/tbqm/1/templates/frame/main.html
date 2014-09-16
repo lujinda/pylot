@@ -1,0 +1,56 @@
+$def with(mess="")
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+<style type="text/css">
+    body{margin:50px}
+    input{
+        width:150px;
+    }
+</style>
+
+<script language="javascript">
+    function checkEmpty(){
+        if(Submit.Content.value=="" ||Submit.Name.value==""||
+        Submit.Room.value==""||Submit.Time.value=="")
+        {
+            alert("请保证提交信息不为空！");
+            return false;
+        }
+        return true;
+    }
+</script>
+
+</head>
+
+<body algin="center" margin=20>
+    <form method="get" id="Submit" name="Submit" action="/sendKw?page=1">
+        <b>搜索已被解决问题:</b>
+        <a href="/help#search" target="_blank">搜索使用帮助</a><p>
+    <input name="Kw" id="Kw" />
+    <input style="width:50px" type="submit" value="搜索"/>
+</form>
+请把您电脑的故障填写到下面的信息框内，以方便我们的技术人员与您及时取得联系！如发现无法提供故障预约，请联系670913
+<br>不会使用？<a href="/help#submit" target="_blank">请点这></a>
+    <form method="post" id="Submit" name="Submit" onsubmit="return checkEmpty()" action="/sendSubmit">
+    <h3>电脑故障情况(10字以上哦)：</h3>
+    <textarea name="Content" cols=40 rows=10 style="overflow:auto" id="Content" /></textarea>
+    <h3>您的个人信息</h3>
+    姓名：<br>
+    <input name="Name" id="Name" />
+    <br>联系号码：<br>
+    <input name="Phone" id="Phone" />
+    <br>寝室号：<br>
+    <input name="Room" id="Room" />
+    <br>希望我们什么时候过去修：<br>
+    <input name="Time" id="Time" />
+    <br>
+
+    <input style="width:50px" type="submit" value="提交"/>
+<br>
+$:mess
+    
+</body>
+</html>

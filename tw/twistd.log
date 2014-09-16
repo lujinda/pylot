@@ -1,0 +1,86 @@
+2014-08-21 16:43:30+0800 [-] Log opened.
+2014-08-21 16:43:30+0800 [-] twistd 14.0.0 (/usr/bin/python 2.7.3) starting up.
+2014-08-21 16:43:30+0800 [-] reactor class: twisted.internet.epollreactor.EPollReactor.
+2014-08-21 16:43:30+0800 [-] EchoFactory starting on 1234
+2014-08-21 16:43:30+0800 [-] Starting factory <__builtin__.EchoFactory instance at 0x20fc680>
+2014-08-21 16:45:22+0800 [-] Received SIGTERM, shutting down.
+2014-08-21 16:45:22+0800 [-] (TCP Port 1234 Closed)
+2014-08-21 16:45:22+0800 [-] Stopping factory <__builtin__.EchoFactory instance at 0x20fc680>
+2014-08-21 16:45:22+0800 [-] Main loop terminated.
+2014-08-21 16:45:22+0800 [-] Server Shut Down.
+- [-] Log opened.
+- [-] twistd 14.0.0 (/usr/bin/python 2.7.3) starting up.
+- [-] reactor class: twisted.internet.epollreactor.EPollReactor.
+2014-08-27T11:12:11+0800 [stderr#error] Traceback (most recent call last):
+2014-08-27T11:12:11+0800 [stderr#error]   File "/usr/local/bin/twistd", line 14, in <module>
+2014-08-27T11:12:11+0800 [stderr#error]     run()
+2014-08-27T11:12:11+0800 [stderr#error]   File "/usr/local/lib/python2.7/dist-packages/twisted/scripts/twistd.py", line 27, in run
+2014-08-27T11:12:11+0800 [stderr#error]     app.run(runApp, ServerOptions)
+2014-08-27T11:12:11+0800 [stderr#error]   File "/usr/local/lib/python2.7/dist-packages/twisted/application/app.py", line 654, in run
+2014-08-27T11:12:11+0800 [stderr#error]     runApp(config)
+2014-08-27T11:12:11+0800 [stderr#error]   File "/usr/local/lib/python2.7/dist-packages/twisted/scripts/twistd.py", line 23, in runApp
+2014-08-27T11:12:11+0800 [stderr#error]     _SomeApplicationRunner(config).run()
+2014-08-27T11:12:11+0800 [stderr#error]   File "/usr/local/lib/python2.7/dist-packages/twisted/application/app.py", line 390, in run
+2014-08-27T11:12:11+0800 [stderr#error]     self.postApplication()
+2014-08-27T11:12:11+0800 [stderr#error]   File "/usr/local/lib/python2.7/dist-packages/twisted/scripts/_twistd_unix.py", line 193, in postApplication
+2014-08-27T11:12:11+0800 [stderr#error]     self.startApplication(self.application)
+2014-08-27T11:12:11+0800 [stderr#error]   File "/usr/local/lib/python2.7/dist-packages/twisted/scripts/_twistd_unix.py", line 381, in startApplication
+2014-08-27T11:12:11+0800 [stderr#error]     service.IService(application).privilegedStartService()
+2014-08-27T11:12:11+0800 [stderr#error]   File "/usr/local/lib/python2.7/dist-packages/twisted/application/service.py", line 275, in privilegedStartService
+2014-08-27T11:12:11+0800 [stderr#error]     service.privilegedStartService()
+2014-08-27T11:12:11+0800 [stderr#error]   File "/usr/local/lib/python2.7/dist-packages/twisted/application/internet.py", line 105, in privilegedStartService
+2014-08-27T11:12:11+0800 [stderr#error]     self._port = self._getPort()
+2014-08-27T11:12:11+0800 [stderr#error]   File "/usr/local/lib/python2.7/dist-packages/twisted/application/internet.py", line 133, in _getPort
+2014-08-27T11:12:11+0800 [stderr#error]     'listen%s' % (self.method,))(*self.args, **self.kwargs)
+2014-08-27T11:12:11+0800 [stderr#error]   File "/usr/local/lib/python2.7/dist-packages/twisted/internet/posixbase.py", line 495, in listenTCP
+2014-08-27T11:12:11+0800 [stderr#error]     p.startListening()
+2014-08-27T11:12:11+0800 [stderr#error]   File "/usr/local/lib/python2.7/dist-packages/twisted/internet/tcp.py", line 1004, in startListening
+2014-08-27T11:12:11+0800 [stderr#error]     self._getLogPrefix(self.factory), self._realPortNumber))
+2014-08-27T11:12:11+0800 [stderr#error]   File "/usr/local/lib/python2.7/dist-packages/twisted/internet/abstract.py", line 143, in _getLogPrefix
+2014-08-27T11:12:11+0800 [stderr#error]     return applicationObject.__class__.__name__
+2014-08-27T11:12:11+0800 [stderr#error] AttributeError: class ChatFactory has no attribute '__class__'
+- [-] Log opened.
+- [-] twistd 14.0.0 (/usr/bin/python 2.7.3) starting up.
+- [-] reactor class: twisted.internet.epollreactor.EPollReactor.
+- [-] ChatFactory starting on 1234
+- [-] Starting factory <tw_chatRoom_app.ChatFactory instance at 0x1e8fbd8>
+- [tw_chatRoom_app.ChatFactory] Connection from IPv4Address(TCP, '127.0.0.1', 34582) 
+- [ChatProtocol,0,127.0.0.1] abc has join the room
+- [-] Received SIGTERM, shutting down.
+- [-] (TCP Port 1234 Closed)
+- [-] Stopping factory <tw_chatRoom_app.ChatFactory instance at 0x1e8fbd8>
+- [-] Main loop terminated.
+- [-] Server Shut Down.
+- [-] Log opened.
+- [-] twistd 14.0.0 (/usr/bin/python 2.7.3) starting up.
+- [-] reactor class: twisted.internet.epollreactor.EPollReactor.
+2014-08-27T12:49:06+0800 [stderr#error] Traceback (most recent call last):
+2014-08-27T12:49:06+0800 [stderr#error]   File "/usr/local/bin/twistd", line 14, in <module>
+2014-08-27T12:49:06+0800 [stderr#error]     run()
+2014-08-27T12:49:06+0800 [stderr#error]   File "/usr/local/lib/python2.7/dist-packages/twisted/scripts/twistd.py", line 27, in run
+2014-08-27T12:49:06+0800 [stderr#error]     app.run(runApp, ServerOptions)
+2014-08-27T12:49:06+0800 [stderr#error]   File "/usr/local/lib/python2.7/dist-packages/twisted/application/app.py", line 654, in run
+2014-08-27T12:49:06+0800 [stderr#error]     runApp(config)
+2014-08-27T12:49:06+0800 [stderr#error]   File "/usr/local/lib/python2.7/dist-packages/twisted/scripts/twistd.py", line 23, in runApp
+2014-08-27T12:49:06+0800 [stderr#error]     _SomeApplicationRunner(config).run()
+2014-08-27T12:49:06+0800 [stderr#error]   File "/usr/local/lib/python2.7/dist-packages/twisted/application/app.py", line 390, in run
+2014-08-27T12:49:06+0800 [stderr#error]     self.postApplication()
+2014-08-27T12:49:06+0800 [stderr#error]   File "/usr/local/lib/python2.7/dist-packages/twisted/scripts/_twistd_unix.py", line 193, in postApplication
+2014-08-27T12:49:06+0800 [stderr#error]     self.startApplication(self.application)
+2014-08-27T12:49:06+0800 [stderr#error]   File "/usr/local/lib/python2.7/dist-packages/twisted/scripts/_twistd_unix.py", line 381, in startApplication
+2014-08-27T12:49:06+0800 [stderr#error]     service.IService(application).privilegedStartService()
+2014-08-27T12:49:06+0800 [stderr#error]   File "/usr/local/lib/python2.7/dist-packages/twisted/application/service.py", line 275, in privilegedStartService
+2014-08-27T12:49:06+0800 [stderr#error]     service.privilegedStartService()
+2014-08-27T12:49:06+0800 [stderr#error]   File "/usr/local/lib/python2.7/dist-packages/twisted/application/service.py", line 275, in privilegedStartService
+2014-08-27T12:49:06+0800 [stderr#error]     service.privilegedStartService()
+2014-08-27T12:49:06+0800 [stderr#error]   File "/usr/local/lib/python2.7/dist-packages/twisted/application/internet.py", line 105, in privilegedStartService
+2014-08-27T12:49:06+0800 [stderr#error]     self._port = self._getPort()
+2014-08-27T12:49:06+0800 [stderr#error]   File "/usr/local/lib/python2.7/dist-packages/twisted/application/internet.py", line 133, in _getPort
+2014-08-27T12:49:06+0800 [stderr#error]     'listen%s' % (self.method,))(*self.args, **self.kwargs)
+2014-08-27T12:49:06+0800 [stderr#error]   File "/usr/local/lib/python2.7/dist-packages/twisted/internet/posixbase.py", line 495, in listenTCP
+2014-08-27T12:49:06+0800 [stderr#error]     p.startListening()
+2014-08-27T12:49:06+0800 [stderr#error]   File "/usr/local/lib/python2.7/dist-packages/twisted/internet/tcp.py", line 1004, in startListening
+2014-08-27T12:49:06+0800 [stderr#error]     self._getLogPrefix(self.factory), self._realPortNumber))
+2014-08-27T12:49:06+0800 [stderr#error]   File "/usr/local/lib/python2.7/dist-packages/twisted/internet/abstract.py", line 143, in _getLogPrefix
+2014-08-27T12:49:06+0800 [stderr#error]     return applicationObject.__class__.__name__
+2014-08-27T12:49:06+0800 [stderr#error] AttributeError: class ChatFactory has no attribute '__class__'

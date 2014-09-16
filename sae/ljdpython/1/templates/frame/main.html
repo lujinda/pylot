@@ -25,11 +25,18 @@ $def with(mess="")
 
 </head>
 
-<body algin="center" margin=20>
-    请把您电脑的故障填写到下面的信息框内，以方便我们的技术人员与您及时取得联系！如发现无法提供故障预约，请联系670913
+<body algin="center" margin=100px>
+    <form method="get" id="Submit" name="Submit" action="/sendKw?page=1">
+        <b>搜索已被解决问题:</b>
+        <a href="/help#search" target="_blank">搜索使用帮助</a><p>
+    <input style="width:400px" name="Kw" id="Kw" />
+    <input style="width:50px" type="submit" value="搜索"/>
+</form>
+请把您电脑的故障填写到下面的信息框内，以方便我们的技术人员与您及时取得联系！如发现无法提供故障预约，请联系670913
+<br>不会使用？<a href="/help#submit" target="_blank">请点这></a>
     <form method="post" id="Submit" name="Submit" onsubmit="return checkEmpty()" action="/sendSubmit">
     <h3>电脑故障情况(10字以上哦)：</h3>
-    <textarea name="Content" cols=40 rows=10 style="overflow:auto" id="Content" /></textarea>
+    <textarea name="Content" cols=50 rows=10 style="overflow:auto" id="Content" /></textarea>
     <h3>您的个人信息</h3>
     姓名：<br>
     <input name="Name" id="Name" />

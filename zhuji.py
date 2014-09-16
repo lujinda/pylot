@@ -52,35 +52,41 @@ class ZhuJi():
                 "username":user,
                 "password":pwd,
                 }
-        req=urllib2.Request(login_url,urllib.urlencode(post_data),
-                self.hds)
-        page=urllib2.urlopen(req)
-        result=page.read()
+        headers={'Content-Type':'application/x-www-form-urlencoded'}
+        req=urllib2.Request(login_url,
+                urllib.urlencode(post_data),
+                headers)
+        result=urllib2.urlopen(req).read()
+        self.parseLogin(result)
+    def parseLogin(self,result):
         if result.startswith("登录成功"):
             self.logger.info("%s","登录成功")
+            print "登录成功"
+            self.getTime()
         else:
             self.logger.error("%s","登录失败")
-            raise Exception
+            print "登录失败"
 
-    def onKey(self):
-        url="http://www.id666.com/cmd/product/renew.asp?cmd=renew_auto"
-        req=urllib2.Request(url,None,self.hds)
-        page=urllib2.urlopen(req)
-        root=et.fromstring(page.read().strip())
-        state=root.find("cmdState").text
-        if re.search("成功".decode("utf8"),state):
-            self.logger.info("%s",state)
-            self.logger.info("%s",root.find("errMsg").text)
-        else:
-            self.logger.error("%s",state)
-            self.logger.error("%s",root.find("errMsg").text)
+    def getTime(self):
+        url="http://www.id666.com/member/index.asp"
+        result=urllib2.urlopen(url).read()
+        re_date=re.compile(r"<td>(\d{4}-\d{1,2}-\d{1,2})")
+        endDate=re_date.findall(result)[1]
+        self.setTime(endDate)
+
+    def setTime(self,time):
+        import shelve
+        DB_PATH="/home/ljd/py/data.db"
+        d=shelve.open(DB_PATH,"c")
+        d['ID666空间到期']=time
+        d.close()
+
 
 if __name__=="__main__":
     options=parse_args()
     zhuji=ZhuJi()
     try:
         zhuji.login(options.user,options.pwd)
-        zhuji.onKey()
     except urllib2.URLError:
         zhuji.logger.error("网络连接出错")
         sys.exit(1)

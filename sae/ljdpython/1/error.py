@@ -3,28 +3,11 @@ from config import render
 import web
 
 def notfound():
-    mess=r"""
-        \          SORRY            /
-         \          404            /
-          \    您是不是迷路了!     /
-           ]   请返回首页哦亲.    [    ,'|
-           ]                     [   /  |
-           ]___               ___[ ,'   |
-           ]  ]\             /[  [ |:   |
-           ]  ] \           / [  [ |:   |
-           ]  ]  ]         [  [  [ |:   |
-           ]  ]  ]__     __[  [  [ |:   |
-           ]  ]  ] ]\ _ /[ [  [  [ |:   |
-           ]  ]  ] ] (#) [ [  [  [ :===='
-           ]  ]  ]_].nHn.[_[  [  [
-           ]  ]  ]  HHHHH. [  [  [
-           ]  ] /   `HH("N  \ [  [
-           ]__]/     HHH  "  \[__[
-           ]         NNN         [
-           ]         N/"         [
-           ]         N H         [
-          /          N            \
-         /           q,            \
-        /                           \
-    """
-    return web.notfound(render.notfound(mess))
+    return web.notfound(render.notfound())
+
+def internalerror():
+    return web.internalerror("""<html>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <h3>对服务器的请求，暂时出现了点问题，请刷新，或过会儿再尝试！</h3>
+        如果发现经常出错，请联系作者670913
+    </html>""")

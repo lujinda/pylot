@@ -1,0 +1,84 @@
+10
+
+dir
+0
+https://svn.sinaapp.com/ljdpython/1/templates
+https://svn.sinaapp.com/ljdpython
+add
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+251766e1-1800-4773-92d5-7282197f6617
+
+admin
+dir
+
+
+
+add
+
+yesdeal.html
+file
+
+
+
+add
+
+frame
+dir
+
+
+
+add
+
+loginuser.html
+file
+
+
+
+add
+
+index.html
+file
+
+
+
+add
+
+nolist.html
+file
+
+
+
+add
+
+notfound.html
+file
+
+
+
+add
+
+yeslist.html
+file
+
+
+
+add
+

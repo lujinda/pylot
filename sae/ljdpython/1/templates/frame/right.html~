@@ -1,0 +1,34 @@
+﻿$def with(mess,data)
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+    .SpanHeight{line-height:1.5}
+</style>
+
+</head>
+
+<body>
+<div>
+
+</div>
+    <b>协会最新公告:</b><p>
+    <textarea  readonly=yes class=SpanHeight cols=24 rows=8 style="overflow:auto;font-size:15px">$mess</textarea>
+    <p>
+    <b>技术人员名单:</b>
+    <table width="200" border="1">
+        <tr>
+            <td>姓名</td><td>号码</td>
+        </tr>
+$for no,name,phone in data:
+    <tr><td width="65">$:name</td><td>$:phone</td></tr>
+</table>
+<p>
+<a href="/look?type=last" target="_blank">上个月维修统计</a>
+<p>
+<a href="/look?type=now" target="_blank">本月维修统计</a>
+
+
+</body>
+</html>

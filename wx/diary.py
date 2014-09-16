@@ -243,6 +243,7 @@ class DiaryFrame(wx.Frame):
                     ('新建日记\tCtrl-N','',self.OnNew),
                     ('保存日记\tCtrl-S','保存现在正在写的日记!',self.OnSave),
                     ('设置密码','设置一个日记本启动密码',self.OnSetKey),
+                    ('插入日期','year-mon-day',self.OnInsertData),
                     ('删除密码','删除日记本启动密码',self.OnDelKey),
                 ),
                 ('关于',
@@ -259,6 +260,10 @@ class DiaryFrame(wx.Frame):
     def OnDown(self,event):
         self.pan.get()
 
+    def OnInsertData(self,event):
+        date=time.strftime("%Y-%m-%d")
+        self.contentText.AppendText(date)
+
     
     def createMenuBar(self):
         self.menuItem=[]
@@ -270,6 +275,7 @@ class DiaryFrame(wx.Frame):
         self.SetMenuBar(self.menuBar)
         self.SetAcceleratorTable(wx.AcceleratorTable([(wx.ACCEL_CTRL,ord('N'),self.menuItem[0].GetId())]))
         self.SetAcceleratorTable(wx.AcceleratorTable([(wx.ACCEL_CTRL,ord('S'),self.menuItem[1].GetId())]))
+        self.SetAcceleratorTable(wx.AcceleratorTable([(wx.ACCEL_CTRL,ord('I'),self.menuItem[3].GetId())]))
         
     def OnToMe(self,event):
         webbrowser.open_new_tab('http://linux.zj.cn')

@@ -1,0 +1,87 @@
+#!/usr/bin/env python
+#coding:utf8
+# Author          : tuxpy
+# Email           : q8886888@qq.com
+# Last modified   : 2014-09-05 13:26:14
+# Filename        : weixin.py
+# Description     : 
+from config import render
+import os
+import urllib2,json
+import lxml
+from lxml import etree
+import time
+import hashlib
+import web
+
+__all__ = ["WeixinInterface"]
+
+class CommandHandler:
+    def handle(self, line):
+        cmd_list={
+            u'技术人员':"list",
+            u'最新公告':"mess",
+                }
+
+        command = cmd_list.get(line.strip(),'help')
+        func = getattr(self, 'do_' + command, None)
+        try:
+            request = func()
+        except TypeError:
+            request = self.do_help()
+
+        return request
+    
+    def do_list(self):
+        pass
+    
+    def do_mess(self):
+        from config import get_mess
+        mess = get_mess()
+        return mess
+
+    def do_help(self):
+        help_mess=[
+                '输入以下指令可获取协会的相关信息',
+                '"技术人员"——获取技术人员联系方式',
+                '"最新公告"——获取协会的最近活动信息',
+                ]
+        return '\n'.join(help_mess).decode("utf-8")
+
+
+class WeixinInterface:
+    def __init__(self):
+        self.handler=CommandHandler()
+
+    def GET(self):
+        data = web.input()
+        signature=data.signature
+        timestamp=data.timestamp
+        nonce=data.nonce
+        echostr=data.echostr
+        #自己的token
+        token="e0148a97a6c42b3d283cc2c5041260b9" #这里改写你在微信公众平台里输入的token
+        #字典序排序
+        list=[token,timestamp,nonce]
+        list.sort()
+        sha1=hashlib.sha1()
+        map(sha1.update,list)
+        hashcode=sha1.hexdigest()
+        #sha1加密算法        
+ 
+        #如果是来自微信的请求，则回复echostr
+        if hashcode == signature:
+            return echostr
+
+    def POST(self):        
+        str_xml = web.data() #获得post来的数据
+        xml = etree.fromstring(str_xml)#进行XML解析
+        content=xml.find("Content").text#获得用户所输入的内容
+        msgType=xml.find("MsgType").text
+        fromUser=xml.find("FromUserName").text
+        toUser=xml.find("ToUserName").text
+        
+        return render.reply_text(fromUser,toUser,int(time.time()),u"%s"%self.handler.handle(content))
+
+
+
