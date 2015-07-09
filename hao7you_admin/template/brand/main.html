@@ -1,0 +1,15 @@
+{% extends "../main.html" %}
+{% block head_js_css %}
+    <link rel="stylesheet" href="{{static_url('css/brand.css')}}" />
+    <script src="{{static_url('js/brand.js')}}"></script>
+{% end %}
+{% block main %}
+<ol class="breadcrumb">
+    {% block path_router %}
+    {% end %}
+</ol>
+<div id="brand_content">
+{% block content %}
+{% end %}
+</div>
+{% end %}

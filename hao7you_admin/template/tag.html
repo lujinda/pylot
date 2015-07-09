@@ -1,0 +1,24 @@
+{% extends 'main.html' %}
+{% block head_js_css %}
+    <link rel="stylesheet" href="{{static_url('css/tag.css')}}" />
+    <script src="{{static_url('js/tag.js')}}"></script>
+{% end %}
+{% block title %}手机描述标签{% end %}
+{% block main %}
+<div id="phone_tag_wrap">
+{% for tag in tags %}
+<div id="tag_{{tag['id']}}" class="phone_tag"><span onclick="join_edit(this)">{{tag['tag_name']}}</span><button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="remove_tag('{{tag['id']}}')"><span aria-hidden="true">×</span></button></div>
+{% end %}
+</div>
+<div id="add_tag_wrap">
+    <div class="panel panel-default">
+        <div class="panel-heading">添加新标签</div>
+        <div class="panel-body">
+            <form method="POST">
+                <input type="text" name="tag_name" class="form-control" placeholder='手机标签'>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% end %}

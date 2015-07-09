@@ -1,0 +1,16 @@
+body{
+    background-color: #ccc;
+}
+#login_wrap{
+    width: 400px;
+    position: fixed;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;
+}
+.input-group{
+    margin-bottom: 30px;
+    width: 100%;
+}

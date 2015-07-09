@@ -1,0 +1,96 @@
+body{
+    margin: 0px auto;
+    padding-top: 60px;
+}
+#main{
+    width: 900px;
+    margin: auto;
+}
+header .navbar{
+    background-color: #303A40;
+    width: 100%;
+    min-height: 30px;
+}
+
+.navbar .nav_div{
+    width: 900px;
+    margin:0px auto;
+}
+nav a, nav li{
+    list-style-type: none;
+    display: inline-block;
+}
+
+nav li a, nav li a:hover, nav li a:focus{
+    text-decoration: none;
+    color: #fff;
+}
+.nav_div a{
+    color: #fff;
+    font-weight:bold;
+    padding: 10px 10px;;
+}
+.dropdown-menu li{
+    display: block;
+}
+.nav_logo{
+    float: left;
+    font-weight: bold;
+    margin-right: 20px;
+    color: #fff;
+    padding-right: 8px;
+    border-right: 1px solid #eee;
+}
+.nav_logo span{
+    text-shadow: 4px 4px 6px #fff; 
+}
+nav .nav_item{
+    cursor:pointer;
+}
+nav .nav_item:hover{
+    background-color: #666;
+}
+.dropdown-menu > li > a:hover{
+    background-color: #666;
+    background-image: none;
+}
+nav .btn_logout{
+    border-radius: 6px;
+    float:right;
+    background-color: #777;
+    margin-top: 5px;
+    padding: 4px 10px;
+}
+
+footer{
+    width: 100%;
+    border-top: 1px solid #eee;
+}
+footer div{
+    width: 700px;
+    margin: auto;
+    margin-top: 12px;
+    font-size: 14px;
+    color: #bbb;
+    text-align: center;
+}
+.btn-my{
+    color: #fff;
+    background-image: linear-gradient(to bottom, #6E6E6E, #303030);
+    text-shadow: none;
+}
+.btn-my:hover, .btn-my:focus{
+    background-image: linear-gradient(to bottom, #6E6E6E, #303030);
+    background-color: #333;
+    color: #fff;
+}
+#change_account_wrap{
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    width: 300px;
+}
+#change_account_wrap .modal-dialog{
+    width: 100%;
+}

@@ -1,0 +1,63 @@
+{% extends "main.html" %}
+{% block title %}品牌管理{% end %}
+{% block path_router %}
+    <li class="active">品牌管理</li>
+{% end %}
+{% block content %}
+{% for brand in brands %}
+<div class="brand_logo_box" id="box_{{brand['id']}}" >
+ <div class="thumbnail">
+            <img src="{{brand['brand_logo_url']}}" onclick="update_brand('{{brand['id']}}')" alt="{{brand['brand_name']}}" title="点击修改">
+            <div class="caption">
+                <p class="brand_name">{{brand['brand_name']}}<p>
+                <p><a href="/brand/{{brand['brand_alias_name']}}" class="btn btn-my" role="button">管理</a> <a href="#" onclick="remove_brand('{{brand['id']}}')" class="btn btn-default" role="button">删除</a></p>
+                <div class="brand_summary">{{brand.get('brand_summary') or ''}}</div>
+            </div>
+            <input class="brand_id" value="{{brand['id']}}" type="hidden"/>
+            <input class="brand_alias_name" value="{{brand['brand_alias_name']}}" type="hidden"/>
+        </div>
+</div>
+{% end %}
+
+
+<div class="modal fade" id="add_brand_wrap" tabindex="-1" role="dialog" aria-labelledby="add_brand_label">
+    <form action="/brand" method='POST'>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="add_brand_label">添加品牌</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input type="hidden" name="brand_id"/>
+                    <div class="form-group">
+                        <label class="control-label">品牌名</label>
+                        <input type="text" name="brand_name" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">品牌别名(用于url和分类筛选，只能全字母)</label>
+                        <input type="text" name="brand_alias_name" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label  class="control-label">品牌Logo(url)</label>
+                        <input type="text" name="brand_logo_url" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">品牌简介(500个字内, 可选):</label>
+                        <textarea maxlength=500 class="form-control" name="brand_summary"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="submit" class="btn btn-my">添加</button>
+            </div>
+        </div>
+    </div>
+    </form>
+</div>
+
+<button type="button" onclick="$('#add_brand_wrap').modal().find('form').resetForm().find('input').val('')" class="btn btn-my btn-block">添加新品牌</button>
+{% end %}
+

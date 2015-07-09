@@ -1,0 +1,26 @@
+#add_tag_wrap{
+    width: 200px;
+    margin-top: 40px;
+}
+.phone_tag{
+    border-radius: 8px;
+    border: 3px solid #999;
+    display: inline-block;
+    padding: 6px 10px;
+    margin: 10px 20px;
+    cursor: pointer;
+    color: #444;
+    font-size: 16px;
+}
+.phone_tag button{
+    margin-left: 10px;
+}
+.phone_tag:hover{
+    border: 3px solid #444;
+    color: #000;
+}
+.edit_tag_input{
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+

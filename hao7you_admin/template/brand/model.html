@@ -1,0 +1,96 @@
+{% extends "main.html" %}
+{% block title %}{{brand['brand_name']}} 管理{% end %}
+{% block path_router %}
+    <li><a href="./">品牌管理</a></li>
+    <li class="active">{{brand['brand_name']}}</li>
+{% end %}
+{% block content %}
+<div class="brand_summary_box">
+    <img src="{{brand['brand_logo_url']}}">
+    <span>{{brand['brand_summary']}}</span>
+</div>
+{% for model in models %}
+<div class="model_box" id="box_{{model['id']}}">
+    <div class="model_title"><strong>型号：</strong>{{model['model_name']}} <button type="button" class="close" onclick="remove_model('{{model['id']}}')" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div>
+    <button class="btn btn-default btn-block" onclick="list_model('{{model["id"]}}', this)">查看机型配置</button>
+    <div class="model_param">
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th width="100px">参数名</th>
+                    <th>参数值</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% end %}
+<div class="panel panel-default">
+    <div class="panel-heading">添加机型</div>
+    <div class="panel-body" id="add_model_wrap">
+        <form action='' method="POST">
+            <li>
+            <label><span>型号</span></label> <input type="text" class="form-control" placeholder="型号" name="model_name">
+            </li>
+            <li>
+            <label><span>屏幕尺寸</span>
+            </label>
+            <input type="text" class="form-control" placeholder="屏幕尺寸" name="screen_size">
+            </li>
+            <li>
+            <label><span>操作系统</span>
+            </label>
+            <select name="os">
+                {% for _k, _v in all_os.items() %}
+                <option value="{{_k}}">{{_v}}</option>
+                {% end %}
+            </select>
+            </li>
+            <li>
+            <label>
+                <span>拍照像素</span>
+            </label>
+            <input type="text" class="form-control" placeholder="百万" name="pixels">
+            </li>
+            <li class="have_more">
+            <label>
+                <span>货源</span></label>
+            <input type="text" class="form-control" placeholder="货源" name="phone_from">
+            </li>
+            <li class="have_more">
+            <label><span>颜色</span>
+            </label>
+            <input type="text" class="form-control" placeholder="颜色" name="color">
+            </li>
+            <li class="have_more">
+            <label><span>容量</span></label>
+            <input type="text" class="form-control" placeholder="单位G" name="space_size">
+            </li>
+            <li class="have_more">
+            <label><span>网络机制</span></label>
+            <select name="network">
+                {% for _k, _v in all_network.items() %}
+                <option value="{{_k}}">{{_v}}</option>
+                {% end %}
+            </select>
+            </li>
+            <button type="submit" class="btn btn-my btn-block">提交</button>
+        </form>
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+        $(".have_more").each(function(index, label){
+            $add_param = $('<span class="glyphicon glyphicon-plus"></span>');
+            $add_param.click(function(){
+                var $input = $(this).prev().clone().val('');
+                $(this).before($input);
+            });
+            $add_param.appendTo($(label));
+        });
+    });
+</script>
+{% end %}
+

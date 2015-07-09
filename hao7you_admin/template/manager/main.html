@@ -1,0 +1,29 @@
+{% extends "../main.html" %}
+{% block head_js_css %}
+    <script src="{{static_url('js/manager.js')}}"></script>
+{% end %}
+{% block main %}
+<div class="modal fade current_modal" id="{%block modal_id %}{% end %}" tabindex="-1" role="dialog" aria-labelledby="modal_label">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modal_label">{% block modal_title %}{% end %}</h4>
+            </div>
+            <form action="" method='PUT'>
+            <div class="modal-body">
+                {% block modal_body %}
+                {% end %}
+            </div>
+            <div class="modal-footer">
+                <button type="button" onclick="window.history.go(-1)" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="sumbit" class="btn btn-my">修改</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $('.current_modal').modal();
+</script>
+{% end %}
